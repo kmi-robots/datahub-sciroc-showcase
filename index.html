@@ -1,0 +1,109 @@
+<html>
+<head>
+	
+	<template id="banner-tmpl">
+		<div class="banner">
+			<img src="images/hero.png" />
+		</div>
+	</template>
+	
+	<template id="monitor-tmpl">
+		<div class="monitor row">
+			<div class="location col-lg-8">
+				<iframe class="monitor" 
+					src="https://api.pp.mksmart.org/sciroc-competition/management/canvasTest.php"></iframe>
+			</div>
+			<div class="status col-lg-4">
+				
+				{{#items.length}}
+				{{#items}}
+				<code>
+					<b>{{team}}</b> <small>{{moment}}</small><br/>&nbsp;&nbsp;<i>{{message}}</i>
+				</code>
+				{{/items}}
+				{{/items.length}}
+
+			</div>
+		</div>
+	</template>
+	
+	<!-- <template id="episode-tmpl">
+		<div class="episode row">
+			<div class="col-lg-6">
+				<h1 class="title">{{code}} - {{title}}</h1>
+				<article>
+				<div class="description">{{description}}</div>
+				{{#skills.length}}
+				<div class="skills"><strong>Skills:</strong>
+					<ul>
+						{{#skills}}
+						<li>{{.}}
+						{{/skills}}
+					</ul>
+				</div>
+				{{/skills.length}}
+				</article>
+			</div>
+			<div class="col-lg-6 pull-right">
+				<img class="comic" src="images/{{comic}}"/>
+			</div>
+		</div>
+	</template> -->
+	
+	<template id="episode-tmpl">
+		<div class="episode row">
+			<div class="col-lg-6">
+				<h1 class="title">{{code}} - {{title}}</h1>
+				<article>
+				<div class="description">{{description}}</div>
+				{{#achievements.length}}
+				<div class="achievements"><strong>Achievements:</strong>
+					<ul>
+						{{#achievements}}
+						<li>{{.}}
+						{{/achievements}}
+					</ul>
+				</div>
+				{{/achievements.length}}
+			</article>
+			</div>
+			<div class="col-lg-6 pull-right">
+				<img class="comic" src="images/{{comic}}"/>
+			</div>
+		</div>
+	</template>
+	
+	<link rel="icon" href="data:,">
+</head>
+<body style="display:none">
+	
+<section id="slide"></section>
+
+<footer>
+	<div class="row">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">www.sciroc.eu</div>
+		<div class="col-lg-4"></div>
+	</div>
+</footer>
+<!-- scripts -->
+<script
+  src="//code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="scripts/moment.js"></script>
+<script src="scripts/mustache-3.0.2.min.js"></script>
+
+<script src="scripts/main.js"></script>
+
+<link href="styles/main.css" type="text/css" rel="stylesheet" />
+<script>
+	$(document).ready(function(){
+		Controller.start();
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+	"code": "E04",
+	"title": "Take the elevator",
+	"description": "The robot must take the elevator crowded with customers to reach a service located in another floor.",
+	"skills": [
+		"Navigation respecting proxemics",
+		"People Detection",
+		"Spoken Dialogue"
+	],
+	"achievements": [
+		"Correctly identifying people calling for the robot.",
+		"Reaching the table.",
+		"Evaluating the status of the table and performing the correct action.",
+		"Taking and deliver the order.",
+		"Taking items to the kitchen.",
+		"Understanding people giving attention to the robot."
+	],
+	"datahub": "The robot should interact with the MK:DataHub to discover which floor it must reach to accomplish its task.",
+	"comic": "E04.jpg",
+	"episode": "EPISODE4"
+}

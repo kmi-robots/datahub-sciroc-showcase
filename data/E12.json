@@ -1,0 +1,19 @@
+{
+	"code": "E12",
+	"title": "Fast delivery of emergency pills",
+	"description": "The aerial robot must attend an emergency situation in which a first-aid kit needs to be delivered to a customer. The robot must be able to fly autonomously to the customer location as fast as possible. The robot might need to detect and avoid possible obstacles on the way.",
+	"skills": [
+		"Autonomous Navigation",
+		"Obstacle Detection"
+	],
+	"achievements": [
+		"Entering the marquee.",
+		"Detecting the customer.",
+		"Landing and delivering the first-aid kit.",
+		"Exiting the marquee.",
+		"Landing at the starting location.",
+		"Transmitting live images/video to the MK:DataHub."
+	],
+	"comic": "E12.jpg",
+	"episode": "EPISODE12"
+}

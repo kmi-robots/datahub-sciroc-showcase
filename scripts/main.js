@@ -41,17 +41,20 @@ var Episodes = {
 		}else{
 			return false;
 		}
+	},
+	"keys": function(){
+		return ["E03", "E04", "E07", "E10", "E12"];
 	}
 };
 //
 //
 var Status={};
 Status.messages={
-	"E03": {last: 0, items: [], limit: 10},
-	"E04": {last: 0, items: [], limit: 10},
-	"E07": {last: 0, items: [], limit: 10},
-	"E10": {last: 0, items: [], limit: 10},
-	"E12": {last: 0, items: [], limit: 10}
+	"E03": {last: 0, items: [], limit: 10, episode: "EPISODE3"},
+	"E04": {last: 0, items: [], limit: 10, episode: "EPISODE4"},
+	"E07": {last: 0, items: [], limit: 10, episode: "EPISODE7"},
+	"E10": {last: 0, items: [], limit: 10, episode: "EPISODE10"},
+	"E12": {last: 0, items: [], limit: 10, episode: "EPISODE12"}
 };
 Status.update=function(team){
 	
@@ -106,27 +109,10 @@ Showcase.present = async function(){
 	var target = arguments[1];
 	var data = arguments[2] || {};
 	var speed = arguments[3] || 0;
-	//
-	if(typeof data === "string"){
-		// attempt to get the json file
-		var jqxhr = $.getJSON( "data/" + data + ".json", function() {
-		})
-		.done(function(_data) {
-			Showcase.present(template, target, _data, speed);
-		})
-		.fail(function() {
-			throw "Cannot get data for " + data ;
-		})
-		.always(function() {
-		//
-		});
-		return this;
-	}
 	
 	// console.log("data", data);
 	//
 	$("body").fadeOut(speed,function(){
-		// If data is already an Object
 		var output = Mustache.render($("#"+template).html(), data);
 		$("#"+target).html(output);
 		$("body").fadeIn(speed);
@@ -134,7 +120,7 @@ Showcase.present = async function(){
 	//
 	return this;
 }
-
+//
 //
 //
 //
@@ -143,12 +129,28 @@ var Banner = async function(keep, fade){
 	await sleep(keep);
 }
 var Episode = async function(episode, keep, fade){
-	await Showcase.present("episode-tmpl", "slide", episode, fade);
-	await sleep(keep);	
+	// console.log("episode",episode);
+	$.getJSON( "data/" + episode + ".json")
+		.done(function(_data) {
+			Showcase.present("episode-tmpl", "slide", _data, fade);
+		})
+		.fail(function() {
+			throw "Cannot get data for " + episode ;
+		});
+	await sleep(keep);
 }
-var Scoreboard = async function(keep, fade){
-	await Showcase.present("scoreboard-tmpl", "slide", "", fade);	
-	await sleep(keep);	
+var Monitor = async function(episode, keep, fade){
+	// console.log("monitor",episode);
+	$.getJSON( "data/" + episode + ".json")
+		.done(function(_data) {
+			var o = Status.messages[episode];
+			_data.messages = o;
+			Showcase.present("monitor-tmpl", "slide", _data, fade);
+		})
+		.fail(function() {
+			throw "Cannot get data for " + episode ;
+		});
+	await sleep(keep);
 }
 //
 //
@@ -158,21 +160,17 @@ Controller.showcase = async function(){
 	var waitFor = 10000;
 	while(true){
 		await Banner(waitFor, 2500);
-		await Episode("E03", waitFor, 2500);
-		await Showcase.present("monitor-tmpl", "slide", Status.messages["E03"], 2500);
-		await sleep(waitFor);
-		await Episode("E04", waitFor, 2500);
-		await Episode("E07", waitFor, 2500);
-		await Episode("E10", waitFor, 2500);
-		await Episode("E12", waitFor, 2500);
+		// Episodes
+		await Status.refresh();
+		var keys = Episodes.keys();
+		// console.log(keys);
+		for (var x in keys ) {
+			// console.log("x", x);
+			await Episode(keys[x], waitFor, 2500);
+			await Monitor(keys[x], waitFor, 2500);
+		}
 	}
 };
 Controller.start = async function(){
-	await Status.refresh();
-
-	while(true){
-		// console.log(Status.messages["E12"]);
-		await Showcase.present("monitor-tmpl", "slide", Status.messages["E12"], 2500);
-		await sleep(5000);
-	}
+	Controller.showcase ();
 }

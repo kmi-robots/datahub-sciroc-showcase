@@ -10,19 +10,18 @@
 	<template id="monitor-tmpl">
 		<div class="monitor row">
 			<div class="location col-lg-8">
+				<h1 class="title">{{code}} - {{title}}</h1>
 				<iframe class="monitor" 
-					src="https://api.pp.mksmart.org/sciroc-competition/management/canvasTest.php"></iframe>
+					src="https://api.pp.mksmart.org/sciroc-competition/management/map.php?episode={{episode}}&width=800&height=800"></iframe>
 			</div>
 			<div class="status col-lg-4">
-				
-				{{#items.length}}
-				{{#items}}
+				{{#messages.items.length}}
+				{{#messages.items}}
 				<code>
 					<b>{{team}}</b> <small>{{moment}}</small><br/>&nbsp;&nbsp;<i>{{message}}</i>
 				</code>
-				{{/items}}
-				{{/items.length}}
-
+				{{/messages.items}}
+				{{/messages.items.length}}
 			</div>
 		</div>
 	</template>

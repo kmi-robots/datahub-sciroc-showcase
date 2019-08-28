@@ -1,0 +1,16 @@
+{
+	"code": "E10",
+	"title": "Open the door",
+	"description": "Doors are ubiquitous in human environments. There are many types of doors, some of which are easier to operate than others for a robot. However, this “door manipulation” functionality requires that the robot is capable of estimating the direction where the door opens, correctly controlling the motion of the door in presence of variable resisting torque, and operating the locking handle (if present) in order to unlock the door.",
+	"skills": [
+		"Object Perception",
+		"Object Manipulation"
+	],
+	"achievements": [
+		"Correctly opening the door.",
+		"Correctly passing through the open door.",
+		"Correctly pushing down the door handle."
+	],
+	"comic": "E10.jpg",
+	"episode": "EPISODE10"
+}

@@ -1,0 +1,20 @@
+{
+	"code": "E03",
+	"title": "Deliver coffee shop orders",
+	"description": "In this episode the robot will assist people in a coffee shop to take care of customers, by taking orders and bringing objects to and from customers’ tables.",
+	"skills": [
+		"Person Perception",
+		"Object Perception"
+	],
+	"achievements": [
+		"Correctly identifying people calling for the robot.",
+		"Reaching the table.",
+		"Evaluating the status of the table and performing the correct action.",
+		"Taking and deliver the order.",
+		"Taking items to the kitchen.",
+		"Understanding people giving attention to the robot."
+	],
+	"datahub": "Orders are placed through the MK:DataHub.",
+	"comic": "E03.jpg",
+	"episode": "EPISODE3"
+}

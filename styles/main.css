@@ -1,18 +1,31 @@
 /* */
 body{
 	display: none;
+	padding:0px;
+	margin:0px;
 }
 body div {
 	font-size: 1em;
 }
 
 section {
-	padding: 5em;
-	height: 90%;
+	padding: 2em;
+	height: 95%;
 }
 
 section h1 {
-	border-bottom: 5px solid #000;
+	font-size: 3vw;
+	border-bottom: 3px solid #000;
+}
+section h2 {
+	font-size: 2.2;
+}
+section h3 {
+	font-size: 2vw;
+} 
+section h4 {
+	font-size: 1.8vw;
+	
 }
 
 footer {
@@ -41,11 +54,11 @@ footer {
 }
 
 .episode .comic {
-	height: 100%;
+	height: 90%;
 }
 
 .episode article {
-	height:100%;
+	height: 90%;
 	display:flex;
 	flex-direction:column;
 	justify-content:space-around;
@@ -54,7 +67,9 @@ footer {
 iframe.monitor {
 	height: 100%;
 	width: 100%;
-	border: 5px solid #7FA6AB;
+	border: none;
+/*	border: 5px solid #7FA6AB;*/
+	overflow: hidden;
 }
 
 .monitor .status {
@@ -66,5 +81,75 @@ iframe.monitor {
 	font-size: 1.2vw;
 	height: 100%;
 	display: block;
-	overflow: hidden;	
+	overflow: hidden;
+	margin-bottom: 1vw;
+}
+.static {
+	vertical-align: middle;
+}
+.logo img {
+	margin-top: 10%;
+	vertical-align: middle;
+	width: 100%;
+}
+
+.europe p{
+	font-size: 2vw;
+	margin: 2%;
+}
+.europe img{
+/*	margin-top: 10%;
+*/	
+	vertical-align: middle;
+	height: 80%;
+}
+
+.banner{
+	text-align: center;
+}
+.banner img {
+	height: 100%;
+	width: auto;
+}
+.partners div{
+	text-align: center;
+}
+.partners{
+	height:100%;
+/*	display:flex;*/
+/*	flex-direction:column;*/
+/*	justify-content:space-around;*/
+}
+.sponsors {
+/*	height: 28%;*/
+/*	display:flex;
+	flex-direction:column;
+	justify-content:space-around;*/
+/*	margin: 40px;
+	*/
+	margin-top: 2vw;
+	margin-bottom: 4vw;
+}
+.sponsors div {
+	text-align: center;	
+}
+
+.info {
+	text-align:center;
+}
+.info center{
+	font-size: 4vw;
+}
+.info img {
+	height: 70%;
+}
+.teams {
+	height: 90%;
+}
+.teams .team {
+	text-align: center;
+	font-size: 3vw;
+	text-transform: uppercase;
+	vertical-align: middle;
+	line-height: 220%;
 }

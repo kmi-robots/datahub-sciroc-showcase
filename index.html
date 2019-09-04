@@ -2,19 +2,87 @@
 <head>
 	
 	<template id="banner-tmpl">
-		<div class="banner">
-			<img src="images/hero.png" />
+		<div class="banner static">
+			<img src="images/SciRoc-image-hi-res-01.png" />
+		</div>
+	</template>
+	
+	<template id="logo-tmpl">
+		<div class="logo static">
+			<img src="images/sciroc-logo-robot-hires-landscape.png" />
+		</div>
+	</template>
+	
+	<template id="info-tmpl">
+		<div class="info">
+			<center>{{text}}</center>
+			<img src="images/SciRoc-image-hi-res-01.png" />
+		</div>
+	</template>
+	
+	<template id="sciroc-tmpl">
+		<div class="sciroc static">
+			<img src="images/SciRoc-logo-image-hi-res.png" />
+		</div>
+	</template>
+	
+	<template id="blank-tmpl">
+	</template>
+	
+	<template id="europe-tmpl">
+		<div class="europe static">
+		<center>
+			<img src="images/european-commission-colour.jpg" />
+			<p>This project has received funding from the
+			European Union's Horizon 2020 research<br/>
+			and innovation programme under grant
+			agreement No780086.</p>
+		</center>			
+		</div>
+	</template>
+	
+	<template id="kmiou-tmpl">
+		<img src="https://sciroc.eu/sciroc-data/themes/sciroc/assets/img/kmi-logo.png" height="60" class="alignright" alt="The Knowledge Media Institute Logo">
+		<img src="https://sciroc.eu/sciroc-data/themes/sciroc/assets/img/ou-logo.png" height="60" class="alignright" alt="The Open University Logo">
+	</template>
+	
+	<template id="partners-tmpl">
+				<h1>Partners</h1>
+		<div class="row partners">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 centered"><a href="http://www.uwe.ac.uk/" title="University of the West of England, Bristol Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/bristol-logo-1.png" alt="University of the West of England, Bristol Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 centered"><a href="http://www.h-brs.de/" title="Hochschule Bonn-Rhein- Sieg (Germany) Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Hochschule-boon-rein-sieg-1.png" alt="Hochschule Bonn-Rhein- Sieg (Germany) Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://www.catec.aero/administraci-n/fada.htm" title="Fundacion Andaluza para el Desarrollo Espacial Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/07/catec-e1532945489220.jpg" alt="Fundacion Andaluza para el Desarrollo Espacial Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://www.sto.nato.int/Pages/default.aspx" title="NATO Science and Technology Organisation Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/07/STO-CMRE_LAN-e1532945213902.jpg" alt="NATO Science and Technology Organisation Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://www.eu-robotics.net" title="Eurobotics AISBL Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Eurobotics-AISBL-1.png" alt="Eurobotics AISBL Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://ist-id.pt/en/" title="Associacao Do Instituto Superior Tecnico Para a Investigacao e Desenvolvimento Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Associacao-Do-Instituto-Superior-Tecnico-Para-a-Investigacao-e-Desenvolvimento-1.png" alt="Associacao Do Instituto Superior Tecnico Para a Investigacao e Desenvolvimento Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://www.open.ac.uk/" title="The Open University Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/the-open-university-1.png" alt="The Open University Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.polimi.it/en/" title="Politecnico de Milano Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Politecnico-de-Milano-1.png" alt="Politecnico de Milano Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.uniroma1.it/it/pagina-strutturale/home" title="Universita Degli Studi di Roma la Sapienza Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Universita-Degli-Studi-di-Roma-la-Sapienza-1.png" alt="Universita Degli Studi di Roma la Sapienza Logo"></a></div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="http://www.upc.edu/en" title="Universitat Politecnica de Catalunya Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2018/05/Universitat-Politecnica-de-Catalunya-1.png" alt="Universitat Politecnica de Catalunya Logo"></a></div>
+		</div>
+	</template>
+	
+	<template id="sponsors-tmpl">
+		<h1>Sponsors</h1>
+		<h4><strong>Diamond</strong></h4>
+		<div class="row sponsors">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://pal-robotics.com/en/home/" title="PAL Robotics Website" target="_blank"><img width="50%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/pal-robotics-e1558607891134.png" alt="PAL Robotics Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.ocadotechnology.com/" title="Ocado Technology Website" target="_blank"><img width="50%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/ocado-tech-logo.png" width="85%" alt="Ocado Technology Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.cranfield.ac.uk/" title="Cranfield University Website" target="_blank"><img width="30%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/cranfield-uni.png" alt="Cranfield University Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.milton-keynes.gov.uk/" title="Milton Keynes Council Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/NewMKCLogo.png" width="50%" alt="Milton Keynes Council Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.centremk.com/" title="Centre MK Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/centremk.png"  width="85%" alt="Centre MK Logo"></a></div> 
+		</div>
+		<div class="clearfix margin-bottom-50"></div>
+		<h4><strong>Silver</strong></h4>
+		<div class="row sponsors">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  centered"><a href="https://www.costa.co.uk/" title="Costa Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/07/costa.png"  width="45%" alt="Costa Logo"></a></div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  centered"><a href="https://cp.catapult.org.uk/" title="CATAPULT Website" target="_blank"><img  width="45%" src="https://sciroc.eu/sciroc-data/uploads/2019/07/catapult.png" alt="CATAPULT Logo"></a></div>
 		</div>
 	</template>
 	
 	<template id="monitor-tmpl">
+		<h1 class="title">{{code}} - {{title}}</h1>
 		<div class="monitor row">
 			<div class="location col-lg-8">
-				<h1 class="title">{{code}} - {{title}}</h1>
-				<iframe class="monitor" 
-					src="https://api.pp.mksmart.org/sciroc-competition/management/map.php?episode={{episode}}&width=800&height=800"></iframe>
+				<iframe class="monitor"
+					data-src="https://api.pp.mksmart.org/sciroc-competition/management/map.php"></iframe>
 			</div>
-			<div class="status col-lg-4">
+			<div class="status col-lg-4 status-target">
 				{{#messages.items.length}}
 				{{#messages.items}}
 				<code>
@@ -72,19 +140,21 @@
 		</div>
 	</template>
 	
+	<template id="teams-tmpl">
+		<h1>Teams</h1>
+		<div class="teams row">
+				{{#teams.length}}
+						{{#teams}}
+				<div class="team col-lg-4" style="">{{robot}}</div>
+						{{/teams}}
+				{{/teams.length}}
+		</div>
+	</template>
+		
 	<link rel="icon" href="data:,">
 </head>
 <body style="display:none">
-	
 <section id="slide"></section>
-
-<footer>
-	<div class="row">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">www.sciroc.eu</div>
-		<div class="col-lg-4"></div>
-	</div>
-</footer>
 <!-- scripts -->
 <script
   src="//code.jquery.com/jquery-3.4.1.min.js"

@@ -1,14 +1,15 @@
 <?php
 $config = parse_ini_file (dirname(__FILE__) . '/config.ini');
 $key = $config['key'];
+$service = $config['service'];
 
 // Get last messages for each team / episode.
 
 
 
-function getStatusMessages( $team, $episode, $key ){
+function getStatusMessages( $service, $team, $episode, $key ){
 	
-	$service = "https://api.pp.mksmart.org/sciroc-competition/" . $team . "/sciroc-robot-status" . "?query=%7B%22episode%22%3A%20%22" . $episode . "%22%7D" . "&limit=10";
+	$service = $service . '/' . $team . "/sciroc-robot-status" . "?query=%7B%22episode%22%3A%20%22" . $episode . "%22%7D" . "&limit=10";
 	
 	// Create a new cURL resource
 	$curl = curl_init(); 
@@ -44,7 +45,7 @@ function getStatusMessages( $team, $episode, $key ){
 	    $html = '{"error": "cURL error: ' . curl_error($curl) . '", "service": "' . $service . '"}'; 
 	} 
 	else 
-	{ 
+	{
 	}
 
 	// close cURL resource to free up system resources
@@ -52,13 +53,12 @@ function getStatusMessages( $team, $episode, $key ){
 	return json_decode($html);
 }
 
-$service = null;
 $action = $_GET['action'] || 'status';
 $teams = [
 	"uc3m",
 	"socrob",
 	"gentlebots",
-	"matrix",
+	// "matrix",
 	"hearts",
 	"entity",
 	"leedsasr",
@@ -73,11 +73,10 @@ $teams = [
 switch($action){
 	case 'status':
 		// cURL executed successfully
-
 		$episode = $_GET['episode'];
 		$status = [];
 		foreach($teams as $team){
-			$json = getStatusMessages( $team, $episode, $key );
+			$json = getStatusMessages( $service, $team, $episode, $key );
 			if(!is_array($json)){
 				// Error
 			}else{

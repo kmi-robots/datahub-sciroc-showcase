@@ -4,20 +4,20 @@ function sleep(ms) {
 }
 //
 var Teams = [
-	{id: "uc3m", robot: "uc3m", color: "EE7633", episodes: ["E03", "E12"]},
-	{id: "socrob", robot: "socrob" , color: "FBCEAE", episodes: ["E03", "E12"]},
-	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", episodes: ["E03", "E12"]},
+	{id: "uc3m", robot: "uc3m", color: "EE7633"},
+	{id: "socrob", robot: "socrob" , color: "FBCEAE"},
+	{id: "gentlebots", robot: "gentlebots", color: "55AAAA"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
-	{id: "hearts", robot: "hearts", color: "DBEEF1", episodes: ["E03", "E12"]},
-	{id: "entity", robot: "entity", color: "77AB39", episodes: ["E03", "E12"]},
-	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", episodes: ["E03", "E12"]},
-	{id: "bitbots", robot: "bitbots", color: "2C5B62", episodes: ["E03", "E12"]},
-	{id: "catie", robot: "catie", color: "84BFCB", episodes: ["E03", "E12"]},
-	{id: "homer", robot: "homer", color: "029EB1", episodes: ["E03", "E12"]},
-	{id: "a3t", robot: "a3t", color: "003F49", episodes: ["E03", "E12"]},
-	{id: "bathdrones", robot: "bathdrones", color: "", episodes: ["E03", "E12"]},
+	{id: "hearts", robot: "hearts", color: "DBEEF1"},
+	{id: "entity", robot: "entity", color: "77AB39"},
+	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7"},
+	{id: "bitbots", robot: "bitbots", color: "2C5B62"},
+	{id: "catie", robot: "catie", color: "84BFCB"},
+	{id: "homer", robot: "homer", color: "029EB1"},
+	{id: "a3t", robot: "a3t", color: "003F49"},
+	{id: "bathdrones", robot: "bathdrones", color: ""},
 	// {id: "spqr", robot: "spqr", color: "17A09B", episodes: ["E03", "E12"]},
-	{id: "uweaero", robot: "uweaero", color: "E1EFF2", episodes: ["E03", "E12"]}
+	{id: "uweaero", robot: "uweaero", color: "E1EFF2"}
 ];
 var Episodes = {
 	"E03": "EPISODE3",
@@ -261,6 +261,7 @@ Controller.sequence = function(s){
 	var sa = s.split(',');
 
 	async function slide(p){
+		p = p.trim();
 		// console.log(p);
 		var waitFor = Controller.waitFor;
 		var fade = Controller.fade;
@@ -306,6 +307,7 @@ Controller.sequence = function(s){
 			}				
 		}
 	}
+	
 	if ( sa.length == 1 ) {
 		slide(sa[0]);
 	} else {

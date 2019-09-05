@@ -63,6 +63,13 @@ footer {
 	flex-direction:column;
 	justify-content:space-around;
 }
+h1.title img,
+.episode h1 img {
+    width: 3vw;
+    display: inline-block;
+    margin: 2px;
+    vertical-align: bottom;
+}
 
 iframe.monitor {
 	height: 100%;
@@ -71,18 +78,21 @@ iframe.monitor {
 /*	border: 5px solid #7FA6AB;*/
 	overflow: hidden;
 }
-
-.monitor .status {
+div.monitor.row {
 	height: 100%;
-	display: block;
+	overflow: hidden;
+}
+.monitor .status {
+	padding-top: 10px;
+	height: 100%;
 	overflow: hidden;
 }
 .monitor .status code {
 	font-size: 1.2vw;
-	height: 100%;
 	display: block;
 	overflow: hidden;
-	margin-bottom: 1vw;
+	color: black;
+	margin-bottom: 0.5vw;
 }
 .static {
 	vertical-align: middle;
@@ -93,13 +103,11 @@ iframe.monitor {
 	width: 100%;
 }
 
-.europe p{
+.europe p {
 	font-size: 2vw;
 	margin: 2%;
 }
-.europe img{
-/*	margin-top: 10%;
-*/	
+.europe img {
 	vertical-align: middle;
 	height: 80%;
 }
@@ -116,17 +124,8 @@ iframe.monitor {
 }
 .partners{
 	height:100%;
-/*	display:flex;*/
-/*	flex-direction:column;*/
-/*	justify-content:space-around;*/
 }
 .sponsors {
-/*	height: 28%;*/
-/*	display:flex;
-	flex-direction:column;
-	justify-content:space-around;*/
-/*	margin: 40px;
-	*/
 	margin-top: 2vw;
 	margin-bottom: 4vw;
 }
@@ -137,11 +136,31 @@ iframe.monitor {
 .info {
 	text-align:center;
 }
-.info center{
+.info center {
 	font-size: 4vw;
 }
 .info img {
 	height: 70%;
+}
+.robot {
+	height: 90%;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+	text-align: center;
+}
+.robot center {
+	font-size: 4vw;
+	display: block;
+}
+.robot img {
+	height: 40%;
+	width: auto;
+	align-self: center;
+}
+.robot .moment {
+	font-size: 2.5vw;
+	display: block;
 }
 .teams {
 	height: 90%;

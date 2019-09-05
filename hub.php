@@ -3,7 +3,7 @@ $config = parse_ini_file (dirname(__FILE__) . '/config.ini');
 $service = null;
 switch($_GET['action']){
 	case 'status':
-		$service = "https://api.pp.mksmart.org/sciroc-competition/" . $_GET['team'] . "/sciroc-robot-status";
+		$service = "https://api.pp.mksmart.org/sciroc-competition/" . $_GET['team'] . "/sciroc-robot-status" . "?query=%7B%22episode%22%3A%20%22" . $_GET['episode'] . "%22%7D" . "&limit=10";
 		break;
 	default:
 		throw new Exception("Unknown or missing action: " . $_GET['action']);

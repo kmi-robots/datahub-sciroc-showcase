@@ -1,6 +1,5 @@
 <html>
 <head>
-	
 	<template id="banner-tmpl">
 		<div class="banner static">
 			<img src="images/SciRoc-image-hi-res-01.png" />
@@ -17,6 +16,16 @@
 		<div class="info">
 			<center>{{text}}</center>
 			<img src="images/SciRoc-image-hi-res-01.png" />
+		</div>
+	</template>
+	
+	<template id="robot-tmpl">
+		<div class="robot">
+			<center>
+				<span class="message">"{{message.message}}"</span>
+				<span class="moment">{{episode}} // {{message.team}} // {{message.moment}}</span>
+			</center>
+			<img src="images/{{image}}" />
 		</div>
 	</template>
 	
@@ -76,22 +85,25 @@
 	</template>
 	
 	<template id="monitor-tmpl">
-		<h1 class="title">{{code}} - {{title}}</h1>
+		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}"/>{{code}} - {{title}}</h1>
 		<div class="monitor row">
-			<div class="location col-lg-8">
+			<div class="location col-lg-6">
 				<iframe class="monitor"
 					data-src="https://api.pp.mksmart.org/sciroc-competition/management/map.php"></iframe>
 			</div>
-			<div class="status col-lg-4 status-target">
-				{{#messages.items.length}}
-				{{#messages.items}}
-				<code>
-					<b>{{team}}</b> <small>{{moment}}</small><br/>&nbsp;&nbsp;<i>{{message}}</i>
-				</code>
-				{{/messages.items}}
-				{{/messages.items.length}}
+			<div class="status col-lg-6 status-target">
 			</div>
 		</div>
+	</template>
+	
+	<template id="messages-tmpl">
+		{{#items.length}}
+		{{#items}}
+		<code><!-- ({{_timestamp}}) -->
+			<b>{{team}}</b> <small>{{moment}} </small><br/>&nbsp;&nbsp;<i>{{message}}</i>
+		</code>
+		{{/items}}
+		{{/items.length}}		
 	</template>
 	
 	<!-- <template id="episode-tmpl">
@@ -120,7 +132,7 @@
 	<template id="episode-tmpl">
 		<div class="episode row">
 			<div class="col-lg-6">
-				<h1 class="title">{{code}} - {{title}}</h1>
+				<h1 class="title"><img src="images/{{robot}}"/>{{code}} - {{title}}</h1>
 				<article>
 				<div class="description">{{description}}</div>
 				{{#achievements.length}}

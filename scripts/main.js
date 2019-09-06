@@ -222,6 +222,7 @@ var Monitor = async function(episode, keep, fade){
 			});
 			o.items = o.items.slice(0,10);
 			_data.messages = o;
+			_data.hostname = (window.location.hostname == 'localhost' ? 'api.pp.mksmart.org' : window.location.hostname );
 			// console.log('---->',Episodes[episode]);
 			_data.robot = Status.messages[episode].robot;
 			// console.log("messages", _data);
@@ -234,8 +235,6 @@ var Monitor = async function(episode, keep, fade){
 				var src = ifr.data('src');
 				var height = ifr.height() - 2;
 				var width = ifr.width() - 2;
-				// console.log('height', height);
-				// console.log('width', width);
 				src = src + "?episode=" + _data.episode + '&width=' + width + '&height=' + height;
 				ifr.attr('src', src);	
 			});

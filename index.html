@@ -19,6 +19,22 @@
 		</div>
 	</template>
 	
+	<template id="info2-tmpl">
+		<div class="info2">
+			<div class="txt">
+Autonomous robots compete in five tasks:
+<ul>
+<li>taking an elevator
+<li>deliverying medications
+<li>opening doors
+<li>serving customers in a coffee shop
+<li>picking and packing items in a grocery store
+</ul>
+			</div>
+			<img src="images/SciRoc-image-hi-res-01.png" />
+		</div>
+	</template>
+	
 	<template id="robot-tmpl">
 		<div class="robot">
 			<center>
@@ -85,7 +101,7 @@
 	</template>
 	
 	<template id="monitor-tmpl">
-		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}}</h1>
+		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}} {{#sponsor}}{{.}}{{/sponsor}}</h1>
 		<div class="monitor row">
 			<div class="location col-lg-6">
 				<iframe class="monitor"
@@ -97,13 +113,13 @@
 	</template>
 	
 	<template id="messages-tmpl">
-		{{#items.length}}
-		{{#items}}
-		<code><!-- ({{_timestamp}}) -->
-			<b>{{team}}</b> <small>{{moment}} </small><br/>&nbsp;&nbsp;<i>{{message}}</i>
-		</code>
-		{{/items}}
-		{{/items.length}}		
+{{#items.length}}
+{{#items}}
+<code>
+	<b>{{team}}</b> <small>{{moment}} </small><br/>&nbsp;&nbsp;<i>{{message}}</i>
+</code>
+{{/items}}
+{{/items.length}}
 	</template>
 	
 	<!-- <template id="episode-tmpl">
@@ -144,6 +160,7 @@
 					</ul>
 				</div>
 				{{/achievements.length}}
+				{{#sponsor}} <img src="images/{{.}}.png" class="{{.}}"/>{{/sponsor}}
 			</article>
 			</div>
 			<div class="col-lg-6 pull-right">
@@ -156,9 +173,9 @@
 		<h1>Teams</h1>
 		<div class="teams row">
 				{{#teams.length}}
-						{{#teams}}
-				<div class="team col-lg-4" style="">{{robot}}</div>
-						{{/teams}}
+					{{#teams}}
+				<div class="team col-lg-4" style=""><img src="images/flags/4x3/{{flag}}.svg"/> {{label}} </div>
+					{{/teams}}
 				{{/teams.length}}
 		</div>
 	</template>

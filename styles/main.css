@@ -133,7 +133,6 @@ div.monitor.row {
 	text-align: center;	
 }
 
-.info {}
 .info {
 	text-align:center;
 }
@@ -167,10 +166,30 @@ div.monitor.row {
 .teams {
 	height: 90%;
 }
+.teams .team img{
+	display: inline-block;
+	height: 3vw;
+}
 .teams .team {
-	text-align: center;
+	text-align: left;
 	font-size: 3vw;
-	text-transform: uppercase;
+/*	text-transform: uppercase;*/
 	vertical-align: middle;
 	line-height: 220%;
+}
+img.ocado-tech-logo,img.costa {
+	width: auto;
+	align-self: center;
+}
+.info2{
+	
+	text-align: center;
+	font-size: 2.8vw;
+}
+.info2 .txt{
+	text-align: left;
+	padding-left: 20vw;
+}
+.info2 img {
+	height: 60%;
 }

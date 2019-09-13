@@ -4,20 +4,20 @@ function sleep(ms) {
 }
 //
 var Teams = [
-	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M"},
-	{id: "socrob", robot: "socrob" , color: "FBCEAE"},
-	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots"},
+	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es"},
+	{id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt"},
+	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
-	{id: "hearts", robot: "hearts", color: "DBEEF1"},
-	{id: "entity", robot: "entity", color: "77AB39"},
-	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR"},
-	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots"},
-	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE"},
-	{id: "homer", robot: "homer", color: "029EB1"},
-	{id: "a3t", robot: "a3t", color: "003F49"},
-	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr"},
+	{id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb"},
+	{id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es"},
+	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR", flag: "gb"},
+	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots", flag: "de"},
+	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE", flag: "fr"},
+	// {id: "homer", robot: "homer", color: "029EB1", label: "Homer"},
+	// {id: "a3t", robot: "a3t", color: "003F49", label: "A3T"},
+	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr", flag: "gb"},
 	// {id: "spqr", robot: "spqr", color: "17A09B", episodes: ["E03", "E12"]},
-	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero"}
+	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero", flag: "gb"}
 ];
 var Episodes = {
 	"E03": "EPISODE3",
@@ -154,9 +154,11 @@ var Static = async function(template, keep, fade){
 	await sleep(keep);
 }
 var Episode = async function(episode, keep, fade){
+	
 	// console.log("episode",episode);
 	$.getJSON( "data/" + episode + ".json")
 		.done(function(_data) {
+			console.log("_data",_data);
 			_data.robot = Status.messages[episode].robot;
 			Showcase.present("episode-tmpl", "slide", _data, fade);
 		})
@@ -213,12 +215,12 @@ var Monitor = async function(episode, keep, fade){
 			var o = Status.messages[episode];
 			// These needs to be sorted and cut to the latest 10
 			o.items.sort(function(a, b){
-			    var keyA = a._timestamp,
-			        keyB = b._timestamp;
-			    // Compare the 2 timestamps reverse
-			    if(keyA < keyB) return 1;
-			    if(keyA > keyB) return -1;
-			    return 0;
+				var keyA = a._timestamp,
+					keyB = b._timestamp;
+				// Compare the 2 timestamps reverse
+				if(keyA < keyB) return 1;
+				if(keyA > keyB) return -1;
+				return 0;
 			});
 			o.items = o.items.slice(0,10);
 			_data.messages = o;
@@ -250,7 +252,7 @@ var Monitor = async function(episode, keep, fade){
 var Controller={};
 Controller.waitFor = 10000;
 Controller.fade = 5000;
-Controller.size = 'medium';
+Controller.size = 'large';
 Controller.loop = async function(callback, interval = 0){
 	while(true){
 		await callback();
@@ -287,12 +289,16 @@ Controller.sequence = function(s){
 				case 'teams':
 					await InfoTeams(waitFor, fade);
 					break;
+				case 'tasks':
+					await Showcase.present('info2-tmpl',"slide", {}, fade);
+					break;
 				case 'info1':
 					// "SciRco"
 					await Info("SciRoc is a EU-H2020 funded project \nbringing robot tournaments to city contexts", waitFor, fade);
 					break;
 				case 'info2':
-					await Info("Autonomous robots cooperate and interact with citizens,\n accomplishing tasks such as assisting customers,\n providing professional services, \nand supporting during emergency situations.", waitFor, fade);
+					// cooperate and interact with citizens,\n accomplishing tasks such as assisting customers,\n providing professional services, \nand supporting during emergency situations.
+					await Info("Autonomous robots compete in five tasks: \ntaking an elevator, deliverying medications, \nopening doors, serving customers in a coffee shop, \nand picking and packing items in a grocery store", waitFor, fade);
 					break;
 				case 'E03':
 				case 'E04':
@@ -340,4 +346,18 @@ Controller.start = async function(){
 		Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 		// Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 	}
+/* TODO
+	- Info2 slide bulletpoints and 
+	- Costa logo on E03
+	- Ocado logo on E07
+	- Teams slide with city and flags
+
+Sciroc challenge advert
+Sciroc description
+Episode-specific slide
+EU Flag
+Consortium partners
+Sponsors
+SCiroc Logo
+	*/
 }

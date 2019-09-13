@@ -4,20 +4,20 @@ function sleep(ms) {
 }
 //
 var Teams = [
-	{id: "uc3m", robot: "uc3m", color: "EE7633"},
+	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M"},
 	{id: "socrob", robot: "socrob" , color: "FBCEAE"},
-	{id: "gentlebots", robot: "gentlebots", color: "55AAAA"},
+	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
 	{id: "hearts", robot: "hearts", color: "DBEEF1"},
 	{id: "entity", robot: "entity", color: "77AB39"},
-	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7"},
-	{id: "bitbots", robot: "bitbots", color: "2C5B62"},
-	{id: "catie", robot: "catie", color: "84BFCB"},
+	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR"},
+	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots"},
+	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE"},
 	{id: "homer", robot: "homer", color: "029EB1"},
 	{id: "a3t", robot: "a3t", color: "003F49"},
-	{id: "bathdrones", robot: "bathdrones", color: ""},
+	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr"},
 	// {id: "spqr", robot: "spqr", color: "17A09B", episodes: ["E03", "E12"]},
-	{id: "uweaero", robot: "uweaero", color: "E1EFF2"}
+	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero"}
 ];
 var Episodes = {
 	"E03": "EPISODE3",
@@ -288,10 +288,11 @@ Controller.sequence = function(s){
 					await InfoTeams(waitFor, fade);
 					break;
 				case 'info1':
-					await Info("SciRoc is a EU-H2020 funded project supporting the European Robotics League (ERL), whose aim is to bring robot tournaments in the context of Smart Cities.", waitFor, fade);
+					// "SciRco"
+					await Info("SciRoc is a EU-H2020 funded project \nbringing robot tournaments to city contexts", waitFor, fade);
 					break;
 				case 'info2':
-					await Info("Autonomous robots cooperate and interact with its citizens, accomplishing tasks such as assisting customers, providing professional services, and supporting during emergency situations.", waitFor, fade);
+					await Info("Autonomous robots cooperate and interact with citizens,\n accomplishing tasks such as assisting customers,\n providing professional services, \nand supporting during emergency situations.", waitFor, fade);
 					break;
 				case 'E03':
 				case 'E04':
@@ -337,5 +338,6 @@ Controller.start = async function(){
 		Controller.sequence(s);
 	}else{
 		Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
+		// Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 	}
 }

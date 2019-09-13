@@ -133,11 +133,13 @@ div.monitor.row {
 	text-align: center;	
 }
 
+.info {}
 .info {
 	text-align:center;
 }
 .info center {
-	font-size: 4vw;
+	white-space: pre;
+	font-size: 3.8vw;
 }
 .info img {
 	height: 70%;

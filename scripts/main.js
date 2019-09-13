@@ -289,6 +289,9 @@ Controller.sequence = function(s){
 				case 'teams':
 					await InfoTeams(waitFor, fade);
 					break;
+				case 'advert':
+					await Showcase.present('advert-tmpl',"slide", {}, fade);
+					break;
 				case 'tasks':
 					await Showcase.present('info2-tmpl',"slide", {}, fade);
 					break;

@@ -193,3 +193,11 @@ img.ocado-tech-logo,img.costa {
 .info2 img {
 	height: 60%;
 }
+.advert{
+	width: auto;
+	height: 100%;
+	background-image: url("../images/landscape-advertV6.png");
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}

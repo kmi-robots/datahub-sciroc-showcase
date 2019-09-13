@@ -346,7 +346,7 @@ Controller.start = async function(){
 	if(s){
 		Controller.sequence(s);
 	}else{
-		Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
+		Controller.sequence('logo,advert,info1,tasks,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 		// Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 	}
 /* TODO

@@ -235,7 +235,7 @@ var Monitor = async function(episode, keep, fade){
 				var src = ifr.data('src');
 				var height = ifr.height() - 2;
 				var width = ifr.width() - 2;
-				src = src + "?episode=" + _data.episode + '&width=' + width + '&height=' + height;
+				src = src + "?robotSize=" + Controller.size + "&episode=" + _data.episode + '&width=' + width + '&height=' + height;
 				ifr.attr('src', src);	
 			});
 		})
@@ -250,6 +250,7 @@ var Monitor = async function(episode, keep, fade){
 var Controller={};
 Controller.waitFor = 10000;
 Controller.fade = 5000;
+Controller.size = 'medium';
 Controller.loop = async function(callback, interval = 0){
 	while(true){
 		await callback();
@@ -325,8 +326,11 @@ Controller.start = async function(){
 	var s = url.searchParams.get("s");
 	var wait = url.searchParams.get("w") || 10;
 	var fade = url.searchParams.get("f") || 5;
+	var size = url.searchParams.get("z") || 'medium';
+	
 	Controller.waitFor = wait*1000;
 	Controller.fade = fade*1000;
+	Controller.size = size;
 	Controller.loop(Status.refresh, 5000);
 	Controller.loop(Status.refreshMessages, 3000);
 	if(s){

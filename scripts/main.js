@@ -257,7 +257,7 @@ var Monitor = async function(episode, keep, fade){
 //
 //
 var Controller={};
-Controller.waitFor = 10000;
+Controller.waitFor = 15000;
 Controller.fade = 5000;
 Controller.size = 'large';
 Controller.loop = async function(callback, interval = 0){

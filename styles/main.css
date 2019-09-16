@@ -167,6 +167,9 @@ div.monitor.row {
 .partners {
 	height:100%;
 }
+.partners img{
+	height: 9vw;
+}
 .sponsors {
 	margin-top: 2vw;
 	margin-bottom: 4vw;
@@ -208,16 +211,26 @@ div.monitor.row {
 .teams {
 	height: 90%;
 }
-.teams .team img{
+.teams .team img {
 	display: inline-block;
-	height: 3vw;
+	height: 4vw;
+	vertical-align: middle;
+	margin-right: 1vw;
 }
 .teams .team {
 	text-align: left;
-	font-size: 3vw;
 /*	text-transform: uppercase;*/
-	vertical-align: middle;
-	line-height: 220%;
+/*	vertical-align: middle;*/
+/*	line-height: 220%;*/
+}
+.teams .team .team-label{	
+    display: inline-block;
+    font-size: 4vw;
+    vertical-align: middle;
+}
+.teams .team .team-description {
+	display: block;
+	font-size: 1.8vw;
 }
 img.ocado-tech-logo,img.costa {
 	width: auto;

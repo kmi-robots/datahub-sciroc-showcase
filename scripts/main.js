@@ -4,20 +4,20 @@ function sleep(ms) {
 }
 //
 var Teams = [
-	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es"},
-	{id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt"},
-	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es"},
+	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es", description: "Robotics Lab UC3, Universidad Carlos III de Madrid (Spain)"},
+	{id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt", description: "Instituto Superior Técnico (Portugal)"},
+	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es", description: "Rey Juan Carlos University (Spain)"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
-	{id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb"},
-	{id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es"},
-	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR", flag: "gb"},
-	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots", flag: "de"},
-	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE", flag: "fr"},
+	{id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb", description: "Bristol Robotics Laboratory (UK)"},
+	{id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es", description: "Everbots – NTT Inc. (Spain)"},
+	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR", flag: "gb", description: "Leeds Autonomous Service Robots – University of Leeds (UK)"},
+	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots", flag: "de", description: "Hochschule Bonn-Rhein-Sieg (Germany)"},
+	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE", flag: "fr", description: "CATIE Robotics (France)"},
 	// {id: "homer", robot: "homer", color: "029EB1", label: "Homer"},
 	// {id: "a3t", robot: "a3t", color: "003F49", label: "A3T"},
-	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr", flag: "gb"},
+	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr", flag: "gb", description: "TeamBathDrones research – University of Bath (UK)"},
 	// {id: "spqr", robot: "spqr", color: "17A09B", episodes: ["E03", "E12"]},
-	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero", flag: "gb"}
+	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero", flag: "gb", description: "University of the West of England (UK)"}
 ];
 var Episodes = {
 	"E03": "EPISODE3",

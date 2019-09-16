@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<template id="banner-tmpl">
 		<div class="banner static">
 			<img src="images/SciRoc-image-hi-res-01.png" />
@@ -29,9 +30,9 @@
 <h1>Main screen</h1>
 <ul>
 	<!-- MAIN SCREEN-->
-	<li><a href="?s=logo,advert,info1,tasks,teams,E03,robot:E03,E04,robot:E04,E07,robot:E07,monitor:E07/30,E10,robot:E10,E12,robot:E12,partners,sponsors,europe/30000">Showcase</a>
+	<li><a href="?s=logo,advert,info1,tasks,teams,E03,robot:E03,E04,robot:E04,E07,robot:E07,E10,robot:E10,E12,robot:E12,partners,sponsors,europe/30">Showcase</a>
 	<li><a href="?s=logo,tasks,E03,E04,E07,E10,E12">Episodes</a>
-	<li><a href="?s=logo,robot:E03,robot:E04,robot:E07,robot:E10,robot:E12">Robots</a>
+	<li><a href="?s=logo,robot:E03,robot:E04,robot:E07,robot:E10,robot:E12">Robots, roll over the last message sent on each episode</a>
 </ul>
 <h1>Episodes</h1>
 <ul>
@@ -72,6 +73,7 @@
 			<li><a href="?s=advert">advert</a>: SciRoc advert
 			<li><a href="?s=info">info</a>: SciRoc general information
 			<li><a href="?s=tasks">tasks</a>: description of tasks
+			<li><a href="?s=teams">teams</a>: SciRoc teams
 			<li><a href="?s=partners">partners</a>: SciRoc partners
 			<li><a href="?s=sponsors">sponsors</a>: SciRoc sponsors
 			<li><a href="?s=europe">europe</a>: funded by the European Union
@@ -153,7 +155,7 @@
 		<h1>Sponsors</h1>
 		<h4><strong>Diamond</strong></h4>
 		<div class="row sponsors">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://pal-robotics.com/en/home/" title="PAL Robotics Website" target="_blank"><img width="50%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/pal-robotics-e1558607891134.png" alt="PAL Robotics Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.ocadotechnology.com/" title="Ocado Technology Website" target="_blank"><img width="50%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/ocado-tech-logo.png" width="85%" alt="Ocado Technology Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.cranfield.ac.uk/" title="Cranfield University Website" target="_blank"><img width="30%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/cranfield-uni.png" alt="Cranfield University Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.milton-keynes.gov.uk/" title="Milton Keynes Council Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/NewMKCLogo.png" width="50%" alt="Milton Keynes Council Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.centremk.com/" title="Centre MK Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/centremk.png"  width="85%" alt="Centre MK Logo"></a></div> 
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://pal-robotics.com/en/home/" title="PAL Robotics Website" target="_blank"><img width="50%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/pal-robotics-e1558607891134.png" alt="PAL Robotics Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.ocadotechnology.com/" title="Ocado Technology Website" target="_blank"><img width="70%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/ocado-tech-logo.png" width="85%" alt="Ocado Technology Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.cranfield.ac.uk/" title="Cranfield University Website" target="_blank"><img width="30%" src="https://sciroc.eu/sciroc-data/uploads/2019/05/cranfield-uni.png" alt="Cranfield University Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.milton-keynes.gov.uk/" title="Milton Keynes Council Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/NewMKCLogo.png" width="40%" alt="Milton Keynes Council Logo"></a></div><div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  centered"><a href="https://www.centremk.com/" title="Centre MK Website" target="_blank"><img src="https://sciroc.eu/sciroc-data/uploads/2019/05/centremk.png"  width="85%" alt="Centre MK Logo"></a></div> 
 		</div>
 		<div class="clearfix margin-bottom-50"></div>
 		<h4><strong>Silver</strong></h4>
@@ -240,7 +242,10 @@
 		<div class="teams row">
 				{{#teams.length}}
 					{{#teams}}
-				<div class="team col-lg-4" style=""><img src="images/flags/4x3/{{flag}}.svg"/> {{label}} </div>
+				<div class="team col-lg-4" style=""><img src="images/flags/4x3/{{flag}}.svg"/>
+					<div class="team-label">{{label}}</div>
+					<div class="team-description">{{description}}</div>
+				</div>
 					{{/teams}}
 				{{/teams.length}}
 		</div>

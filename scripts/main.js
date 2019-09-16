@@ -295,15 +295,18 @@ Controller.sequence = function(s){
 			switch (p){
 				case 'help':
 					await Showcase.present('help-tmpl',"slide", Controller.sequences, fade);
-				break;
+					await sleep(waitFor);
+					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);
 					break;
 				case 'advert':
 					await Showcase.present('advert-tmpl',"slide", {}, fade);
+					await sleep(waitFor);
 					break;
 				case 'tasks':
 					await Showcase.present('info2-tmpl',"slide", {}, fade);
+					await sleep(waitFor);
 					break;
 				case 'info1':
 				case 'info':
@@ -340,14 +343,6 @@ Controller.sequence = function(s){
 		});		
 	}
 };
-Controller.sequences = {
-	"showcase": 'logo,advert,info1,tasks,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000',
-	"episode03": 'logo,advert,E03,robot:E03,monitor:E03/60,partners,sponsors,europe/30',
-	"episode04": 'logo,advert,E03,robot:E04,monitor:E04/60,partners,sponsors,europe/30',
-	"episode07": 'logo,advert,E03,robot:E07,monitor:E07/60,partners,sponsors,europe/30',
-	"episode10": 'logo,advert,E10,robot:E10,monitor:E10/60,partners,sponsors,europe/30',
-	"episode12": 'logo,advert,E12,robot:E12,monitor:E12/60,partners,sponsors,europe/30'
-};
 Controller.start = async function(){
 	
 	var url_string = window.location.href;
@@ -367,8 +362,6 @@ Controller.start = async function(){
 		Controller.sequence(s);
 	}else{
 		Controller.sequence('help');
-		
-		// Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 	}
 /* TODO
 	- Info2 slide bulletpoints and 

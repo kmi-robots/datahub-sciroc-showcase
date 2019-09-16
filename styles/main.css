@@ -219,9 +219,6 @@ div.monitor.row {
 }
 .teams .team {
 	text-align: left;
-/*	text-transform: uppercase;*/
-/*	vertical-align: middle;*/
-/*	line-height: 220%;*/
 }
 .teams .team .team-label{	
     display: inline-block;

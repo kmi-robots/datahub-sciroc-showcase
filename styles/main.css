@@ -3,12 +3,14 @@ body{
 	display: none;
 	padding:0px;
 	margin:0px;
+	background-color: #FFF;
 }
 body div {
 	font-size: 1em;
 }
 
 section {
+	background-color: #FFF;
 	padding: 2em;
 	height: 95%;
 }
@@ -49,7 +51,7 @@ footer {
 .episode .description,
 .episode .achievements,
 .episode .skills {
-	font-size: 1.5vw;
+	font-size: 2vw;
 /*	background-color: #EEE;*/
 }
 
@@ -63,16 +65,19 @@ footer {
 	flex-direction:column;
 	justify-content:space-around;
 }
+.episode article ul li {
+	list-style: none;
+}
 h1.title img,
 .episode h1 img {
     width: 3vw;
     display: inline-block;
-    margin: 2px;
+    margin: 10px;
     vertical-align: bottom;
 }
 
 iframe.monitor {
-	height: 100%;
+	height: 90%;
 	width: 100%;
 	border: none;
 /*	border: 5px solid #7FA6AB;*/
@@ -83,17 +88,54 @@ div.monitor.row {
 	overflow: hidden;
 }
 .monitor .status {
-	padding-top: 10px;
-	height: 100%;
+/*	padding-top: 10px;*/
+	height: 90%;
 	overflow: hidden;
+
+/*	display: flex;
+	flex-direction: column;
+	justify-content: space-around;*/
 }
-.monitor .status code {
-	font-size: 1.2vw;
+
+.monitor .location h2,
+.monitor .status h2 {
 	display: block;
-	overflow: hidden;
-	color: black;
-	margin-bottom: 0.5vw;
+	font-size: 2vw;
 }
+
+.monitor .status .message {
+	font-size: 1.7vw;
+}
+.monitor .status .message-header {
+	display: inline-block;
+}
+.monitor .status .message-header .message-team {
+	font-weight: bold;
+}
+.monitor .status .message-header .message-moment {
+	display: inline-block;
+	margin-left: 0.5vw;
+	font-size: 1.3vw;
+	color: #888;
+}
+.monitor .status .message-content {
+	margin-left: 2vw;
+	display: inline-block;
+}
+
+.monitor .episode-E03 .message-header .message-team,
+.monitor .episode-E04 .message-header .message-team {
+	color: #77AB39;
+}
+.monitor .episode-E07 .message-header .message-team ,
+.monitor .episode-E10 .message-header .message-team {
+	color: #EE7633;
+}
+.monitor .episode-E12 .message-header .message-team {
+	color: #029EB1;
+}
+
+			
 .static {
 	vertical-align: middle;
 }
@@ -119,10 +161,10 @@ div.monitor.row {
 	height: 100%;
 	width: auto;
 }
-.partners div{
+.partners div {
 	text-align: center;
 }
-.partners{
+.partners {
 	height:100%;
 }
 .sponsors {
@@ -190,14 +232,32 @@ img.ocado-tech-logo,img.costa {
 	text-align: left;
 	padding-left: 20vw;
 }
+.info2 ul li{
+	list-style: none;
+}
 .info2 img {
 	height: 60%;
 }
-.advert{
+.advert {
 	width: auto;
 	height: 100%;
 	background-image: url("../images/landscape-advertV6.png");
 	background-position: center center;
 	background-size: contain;
 	background-repeat: no-repeat;
+}
+/*div.slider{
+	padding-top: 7vw;
+	background-color: red;
+}
+input[type=range][orient=vertical] {
+    writing-mode: bt-lr;
+	vertical-align: bottom;
+    -webkit-appearance: slider-vertical;
+    width: 20px;
+    height: 26vw;
+    padding: 20% 5px;
+}*/
+div.help ul {
+	font-size: 1.4vw;
 }

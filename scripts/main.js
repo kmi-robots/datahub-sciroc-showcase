@@ -50,11 +50,11 @@ var Episodes = {
 //
 var Status={};
 Status.messages={
-	"E03": {last: 0, items: [], limit: 10, episode: "EPISODE3", robot: "Tiny"},
-	"E04": {last: 0, items: [], limit: 10, episode: "EPISODE4", robot: "Social"},
-	"E07": {last: 0, items: [], limit: 10, episode: "EPISODE7", robot: "Rover"},
-	"E10": {last: 0, items: [], limit: 10, episode: "EPISODE10", robot: "Arm"},
-	"E12": {last: 0, items: [], limit: 10, episode: "EPISODE12", robot: "Drone"}
+	"E03": {last: 0, items: [], limit: 10, episode: "EPISODE3", robot: "Tiny", color: "#77AB39"},
+	"E04": {last: 0, items: [], limit: 10, episode: "EPISODE4", robot: "Social", color: "#77AB39"},
+	"E07": {last: 0, items: [], limit: 10, episode: "EPISODE7", robot: "Rover", color: "#EE7633"},
+	"E10": {last: 0, items: [], limit: 10, episode: "EPISODE10", robot: "Arm", color: "#EE7633"},
+	"E12": {last: 0, items: [], limit: 10, episode: "EPISODE12", robot: "Drone", color: "#029EB1"}
 };
 Status.busy=false;
 Status.ready=false;
@@ -75,6 +75,14 @@ Status.update=function(episode){
 			var _timestamp = parseInt(m["_timestamp"]);
 			// If it is a new message
 			m.moment = moment.unix(_timestamp).fromNow();
+			
+			for (var x in Teams){
+				if (Teams[x].id == m.team){
+					m.team = Teams[x].label;
+					break;
+				}
+			}
+			
 			Status.messages[episode].items.push(m);
 		}
 	})
@@ -112,7 +120,6 @@ var Showcase={};
 //
 // Present content
 Showcase.present = async function(){
-	//
 	// Hide everything
 	var template = arguments[0];
 	var target = arguments[1];
@@ -121,7 +128,6 @@ Showcase.present = async function(){
 	var callback = arguments[4] || function(){};
 	
 	await Showcase.control();
-	// console.log("data", data);
 	//
 	await $("body").fadeOut(speed/2, async function(){
 		// await sleep(1000);
@@ -144,7 +150,6 @@ Showcase.control = async function(){
 //
 //
 //
-//
 var Banner = async function(keep, fade){
 	await Showcase.present("banner-tmpl","slide", {}, fade);
 	await sleep(keep);
@@ -158,7 +163,7 @@ var Episode = async function(episode, keep, fade){
 	// console.log("episode",episode);
 	$.getJSON( "data/" + episode + ".json")
 		.done(function(_data) {
-			console.log("_data",_data);
+			// console.log("_data",_data);
 			_data.robot = Status.messages[episode].robot;
 			Showcase.present("episode-tmpl", "slide", _data, fade);
 		})
@@ -191,7 +196,7 @@ var RobotMessage = async function(episode, keep, fade){
 	// console.log(message);
 	var o = {};
 	o.message = message;
-	o.message.team = o.message.team.toUpperCase();
+	// o.message.team = o.message.team.toUpperCase();
 	o.episode = episode;
 	o.image = Status.messages[episode].robot;
 	// console.log(o);
@@ -227,6 +232,7 @@ var Monitor = async function(episode, keep, fade){
 			_data.hostname = (window.location.hostname == 'localhost' ? 'api.pp.mksmart.org' : window.location.hostname );
 			// console.log('---->',Episodes[episode]);
 			_data.robot = Status.messages[episode].robot;
+			_data.slider = (episode == "E12") ? true : false;
 			// console.log("messages", _data);
 			await Showcase.present("monitor-tmpl", "slide", _data, fade, async function(){
 				var ifr = $('body iframe.monitor');
@@ -237,7 +243,8 @@ var Monitor = async function(episode, keep, fade){
 				var src = ifr.data('src');
 				var height = ifr.height() - 2;
 				var width = ifr.width() - 2;
-				src = src + "?robotSize=" + Controller.size + "&episode=" + _data.episode + '&width=' + width + '&height=' + height;
+				var maptimeout = 36000;
+				src = src + "?timeout=" + maptimeout + "&iconSize=" + Controller.size + "&episode=" + _data.episode + '&width=' + width + '&height=' + height;
 				ifr.attr('src', src);	
 			});
 		})
@@ -286,6 +293,9 @@ Controller.sequence = function(s){
 			}
 		} else {
 			switch (p){
+				case 'help':
+					await Showcase.present('help-tmpl',"slide", Controller.sequences, fade);
+				break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);
 					break;
@@ -296,6 +306,7 @@ Controller.sequence = function(s){
 					await Showcase.present('info2-tmpl',"slide", {}, fade);
 					break;
 				case 'info1':
+				case 'info':
 					// "SciRco"
 					await Info("SciRoc is a EU-H2020 funded project \nbringing robot tournaments to city contexts", waitFor, fade);
 					break;
@@ -329,6 +340,14 @@ Controller.sequence = function(s){
 		});		
 	}
 };
+Controller.sequences = {
+	"showcase": 'logo,advert,info1,tasks,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000',
+	"episode03": 'logo,advert,E03,robot:E03,monitor:E03/60,partners,sponsors,europe/30',
+	"episode04": 'logo,advert,E03,robot:E04,monitor:E04/60,partners,sponsors,europe/30',
+	"episode07": 'logo,advert,E03,robot:E07,monitor:E07/60,partners,sponsors,europe/30',
+	"episode10": 'logo,advert,E10,robot:E10,monitor:E10/60,partners,sponsors,europe/30',
+	"episode12": 'logo,advert,E12,robot:E12,monitor:E12/60,partners,sponsors,europe/30'
+};
 Controller.start = async function(){
 	
 	var url_string = window.location.href;
@@ -336,17 +355,19 @@ Controller.start = async function(){
 	var s = url.searchParams.get("s");
 	var wait = url.searchParams.get("w") || 10;
 	var fade = url.searchParams.get("f") || 5;
-	var size = url.searchParams.get("z") || 'medium';
+	var size = url.searchParams.get("z") || 'large';
 	
 	Controller.waitFor = wait*1000;
 	Controller.fade = fade*1000;
 	Controller.size = size;
 	Controller.loop(Status.refresh, 5000);
 	Controller.loop(Status.refreshMessages, 3000);
+	
 	if(s){
 		Controller.sequence(s);
 	}else{
-		Controller.sequence('logo,advert,info1,tasks,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
+		Controller.sequence('help');
+		
 		// Controller.sequence('logo,info1,info2,teams,E03,robot:E03,monitor:E03/30,E04,robot:E04,monitor:E04/30,E07,robot:E07,monitor:E07/30,E10,robot:E10,monitor:E10/30,E12,robot:E12,monitor:E12/30,partners,sponsors,europe/30000');
 	}
 /* TODO

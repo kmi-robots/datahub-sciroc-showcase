@@ -19,21 +19,79 @@
 		</div>
 	</template>
 	
-	
 	<template id="advert-tmpl">
 		<div class="advert"></div>
+	</template>
+	
+	<template id="help-tmpl">
+		<div class="help row">
+			<div class="col-lg-4">			
+<h1>Main screen</h1>
+<ul>
+	<!-- MAIN SCREEN-->
+	<li><a href="?s=logo,advert,info1,tasks,teams,E03,robot:E03,E04,robot:E04,E07,robot:E07,monitor:E07/30,E10,robot:E10,E12,robot:E12,partners,sponsors,europe/30000">Showcase</a>
+	<li><a href="?s=logo,tasks,E03,E04,E07,E10,E12">Episodes</a>
+	<li><a href="?s=logo,robot:E03,robot:E04,robot:E07,robot:E10,robot:E12">Robots</a>
+</ul>
+<h1>Episodes</h1>
+<ul>
+	<!-- EPISODE 03-->		
+	<li><a href="?s=logo,advert,E03,robot:E03,monitor:E03/60,partners,sponsors,europe/30">Episode 03 (Show)</a>
+	<li><a href="?s=monitor:E03">Episode 03 (Monitor)</a>
+
+	<!-- EPISODE 04-->		
+	<li><a href="?s=logo,advert,E04,robot:E04,monitor:E04/60,partners,sponsors,europe/30">Episode 04 (Show)</a>
+	<li><a href="?s=monitor:E04">Episode 04 (Monitor)</a>
+
+	<!-- EPISODE 07-->		
+	<li><a href="?s=logo,advert,E07,robot:E07,monitor:E07/60,partners,sponsors,europe/30">Episode 07 (Show)</a>
+	<li><a href="?s=monitor:E07">Episode 07 (Monitor)</a>
+
+	<!-- EPISODE 10-->		
+	<li><a href="?s=logo,advert,E10,robot:E10,monitor:E10/60,partners,sponsors,europe/30">Episode 10 (Show)</a>
+	<li><a href="?s=monitor:E10">Episode 10 (Monitor)</a>
+
+	<!-- EPISODE 12-->		
+	<li><a href="?s=logo,advert,E12,robot:E12,monitor:E12/60,partners,sponsors,europe/30">Episode 12 (Show)</a>
+	<li><a href="?s=monitor:E12">Episode 12 (Monitor)</a>
+
+</ul>
+		</div>
+		<div class="col-lg-6">		
+		<h1>Usage</h1>
+		<ul>
+			<!-- MAIN SCREEN-->
+			<li>Slides are combined with the query param <tt>s</tt>. Example: <a href="?s=logo,advert,info,tasks,teams">?s=logo,advert,info,tasks,teams</a>
+			<li>Each slides lasts 10 seconds by default. Duration can be changed for specific slides: <a href="?s=logo,robot:E03/5,europe/30">?s=logo,robot:E03/5,europe/30</a>
+			<li>The size of the monitoring icons can be adjusted with the param <tt>z</tt> (small,medium,large,xlarge): <a href="?s=monitor:E12&z=small">?s=monitor:E12&z=small</a> (default: large)
+		</ul>
+		<h1>Slides</h1>
+		<ul class="howto">
+			<!-- EPISODE 03-->		
+			<li><a href="?s=logo">logo</a>: SciRoc logo
+			<li><a href="?s=advert">advert</a>: SciRoc advert
+			<li><a href="?s=info">info</a>: SciRoc general information
+			<li><a href="?s=tasks">tasks</a>: description of tasks
+			<li><a href="?s=partners">partners</a>: SciRoc partners
+			<li><a href="?s=sponsors">sponsors</a>: SciRoc sponsors
+			<li><a href="?s=europe">europe</a>: funded by the European Union
+			<li><a href="?s=E03">E03</a>: description of episode 03 (or E04, E07, E10, E12)
+			<li><a href="?s=robot:E03">robot:E03</a>: last message of a robot on E03
+			<li><a href="?s=monitor">monitor:E03</a>: monitoring location & status messages for E03
+		</ul>
+				</div>
+	</div>
 	</template>
 		
 	<template id="info2-tmpl">
 		<div class="info2">
-			<div class="txt">
-Autonomous robots compete in five tasks:
+			<div class="txt">Autonomous robots compete in five tasks:
 <ul>
-<li>taking an elevator
-<li>deliverying medications
-<li>opening doors
-<li>serving customers in a coffee shop
-<li>picking and packing items in a grocery store
+<li>E03 // Serving customers in a coffee shop
+<li>E04 // Taking an elevator
+<li>E07 // Picking and packing items in a grocery store
+<li>E10 // Opening doors
+<li>E12 // Deliverying medications
 </ul>
 			</div>
 			<img src="images/SciRoc-image-hi-res-01.png" />
@@ -44,7 +102,7 @@ Autonomous robots compete in five tasks:
 		<div class="robot">
 			<center>
 				<span class="message">"{{message.message}}"</span>
-				<span class="moment">{{episode}} // {{message.team}} // {{message.moment}}</span>
+				<span class="moment">{{message.team}}  // {{episode}} // {{message.moment}}</span>
 			</center>
 			<img src="images/{{image}}.png" />
 		</div>
@@ -106,23 +164,26 @@ Autonomous robots compete in five tasks:
 	</template>
 	
 	<template id="monitor-tmpl">
-		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}} {{#sponsor}}{{.}}{{/sponsor}}</h1>
-		<div class="monitor row">
+		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}}</h1>
+		<div class="monitor row ">
 			<div class="location col-lg-6">
+				<h2>Location</h2>
 				<iframe class="monitor"
 					data-src="//{{hostname}}/sciroc-resources/map.php"></iframe>
 			</div>
-			<div class="status col-lg-6 status-target">
+			<div class="status col-lg-6 status-target episode-{{code}}">
 			</div>
 		</div>
 	</template>
 	
 	<template id="messages-tmpl">
+				<h2>Status</h2>		
 {{#items.length}}
 {{#items}}
-<code>
-	<b>{{team}}</b> <small>{{moment}} </small><br/>&nbsp;&nbsp;<i>{{message}}</i>
-</code>
+<div class="message">
+	<div class="message-header"><span class="message-team">{{team}}</span><span class="message-moment">({{moment}})</span></div>
+	<div class="message-content">{{message}}</div>
+</div>
 {{/items}}
 {{/items.length}}
 	</template>
@@ -165,7 +226,7 @@ Autonomous robots compete in five tasks:
 					</ul>
 				</div>
 				{{/achievements.length}}
-				{{#sponsor}} <img src="images/{{.}}.png" class="{{.}}"/>{{/sponsor}}
+				{{#sponsor}}<img style="height:4vw" src="images/{{.}}.png" class="{{.}}"/>{{/sponsor}}
 			</article>
 			</div>
 			<div class="col-lg-6 pull-right">

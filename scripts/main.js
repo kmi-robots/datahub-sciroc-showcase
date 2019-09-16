@@ -348,7 +348,7 @@ Controller.start = async function(){
 	var url_string = window.location.href;
 	var url = new URL(url_string);
 	var s = url.searchParams.get("s");
-	var wait = url.searchParams.get("w") || 10;
+	var wait = url.searchParams.get("w") || 20;
 	var fade = url.searchParams.get("f") || 5;
 	var size = url.searchParams.get("z") || 'large';
 	

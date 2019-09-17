@@ -338,8 +338,13 @@ Controller.sequence = function(s){
 		Controller.loop(async function(){
 			for(var x in sa){
 				var p = sa[x];
+				console.log('slide', p);
 				await slide(p);
-			}		
+			}
+			// If reload=true, reload the page at the end of any loop
+			if(Controller.reload == true){
+				window.location.reload();
+			}	
 		});		
 	}
 };
@@ -348,17 +353,27 @@ Controller.start = async function(){
 	var url_string = window.location.href;
 	var url = new URL(url_string);
 	var s = url.searchParams.get("s");
+	var i = url.searchParams.get("i");
 	var wait = url.searchParams.get("w") || 20;
 	var fade = url.searchParams.get("f") || 5;
 	var size = url.searchParams.get("z") || 'large';
+	var reload = url.searchParams.get("r")? true : false;
 	
 	Controller.waitFor = wait*1000;
 	Controller.fade = fade*1000;
 	Controller.size = size;
 	Controller.loop(Status.refresh, 5000);
 	Controller.loop(Status.refreshMessages, 3000);
-	
-	if(s){
+	Controller.reload = false;
+	// console.log('s',s);
+	if(s == 'screen'){
+		Controller.reload = true;
+		$.get( "data/" + i + ".sequence")
+		.done(async function(_data) {
+			console.log(_data);
+			Controller.sequence(_data);
+		});
+	}else if(s){
 		Controller.sequence(s);
 	}else{
 		Controller.sequence('help');

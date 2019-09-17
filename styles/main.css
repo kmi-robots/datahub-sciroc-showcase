@@ -136,7 +136,7 @@ div.monitor.row {
 }
 
 .monitor .episode-E03 iframe { /* COSTA */
-	border: 15px solid;
+	border: 1vw solid;
 	border-top-color: #DDD;
 	border-bottom-color: maroon;
 	border-left-color: green;

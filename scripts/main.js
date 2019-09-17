@@ -243,7 +243,7 @@ var Monitor = async function(episode, keep, fade){
 				var src = ifr.data('src');
 				var height = ifr.height() - 2;
 				var width = ifr.width() - 2;
-				var maptimeout = 36000;
+				var maptimeout = Controller.maptimeout;
 				src = src + "?timeout=" + maptimeout + "&iconSize=" + Controller.size + "&episode=" + _data.episode + '&width=' + width + '&height=' + height;
 				ifr.attr('src', src);	
 			});
@@ -260,6 +260,7 @@ var Controller={};
 Controller.waitFor = 15000;
 Controller.fade = 5000;
 Controller.size = 'large';
+Controller.maptimeout = 60;
 Controller.loop = async function(callback, interval = 0){
 	while(true){
 		await callback();
@@ -358,6 +359,7 @@ Controller.start = async function(){
 	var fade = url.searchParams.get("f") || 5;
 	var size = url.searchParams.get("z") || 'large';
 	var reload = url.searchParams.get("r")? true : false;
+	var to = url.searchParams.get("m") || 60;
 	
 	Controller.waitFor = wait*1000;
 	Controller.fade = fade*1000;
@@ -365,6 +367,7 @@ Controller.start = async function(){
 	Controller.loop(Status.refresh, 5000);
 	Controller.loop(Status.refreshMessages, 3000);
 	Controller.reload = false;
+	Controller.maptimeout = to;
 	// console.log('s',s);
 	if(s == 'screen'){
 		Controller.reload = true;

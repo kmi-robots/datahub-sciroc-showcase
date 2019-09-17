@@ -163,7 +163,7 @@ div.monitor.row {
 	border-left-color: black;
 	border-right-color: green; 	
 }
-.monitor .episode-E12 { /* DRONES */
+.monitor .episode-E12 iframe { /* DRONES */
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: #DDD;

@@ -79,7 +79,7 @@ h1.title img,
 iframe.monitor {
 	height: 90%;
 	width: 96%;
-	border: 15px solid #DDD;
+/*	border: 15px solid #DDD;*/
 /*	border: 5px solid #7FA6AB;*/
 	overflow: hidden;
 }
@@ -153,7 +153,7 @@ div.monitor.row {
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: #DDD;
-	border-left-color: green;
+	border-left-color: navy;
 	border-right-color: #DDD; 	
 }
 .monitor .episode-E10 iframe { /* DOOR */

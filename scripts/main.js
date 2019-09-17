@@ -338,7 +338,7 @@ Controller.sequence = function(s){
 		Controller.loop(async function(){
 			for(var x in sa){
 				var p = sa[x];
-				console.log('slide', p);
+				// console.log('slide', p);
 				await slide(p);
 			}
 			// If reload=true, reload the page at the end of any loop
@@ -370,7 +370,7 @@ Controller.start = async function(){
 		Controller.reload = true;
 		$.get( "data/" + i + ".sequence")
 		.done(async function(_data) {
-			console.log(_data);
+			// console.log(_data);
 			Controller.sequence(_data);
 		});
 	}else if(s){

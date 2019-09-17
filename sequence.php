@@ -3,8 +3,30 @@ $dataDir = dirname(__FILE__) . '/data';
 $a = "";
 $s= "";
 $i= "";
-	
-if(@$_GET['a'] == 'set' && @$_GET['i'] && @$_GET['s']){
+$config = parse_ini_file (dirname(__FILE__) . '/config.ini');
+$usr = $config['usr'];
+$pwd = $config['pwd'];
+
+if(!isset($_SERVER['PHP_AUTH_USER'])){
+	header('WWW-Authenticate: Basic realm="My Realm"');
+	header('HTTP/1.0 401 Unauthorized');
+	echo 'Not authorized';
+	exit;
+}
+switch(@$_GET['a']){
+	case 'get':
+	break;
+	case 'set':
+	case 'del':
+	case 'load':
+	default:
+		if( ! (@$_SERVER['PHP_AUTH_USER'] == $usr && @$_SERVER['PHP_AUTH_PW'] == $pwd )){
+			http_response_code(403);
+			print 'Forbidden';
+			die();
+		}
+}
+if( @$_GET['a'] == 'set' && @$_GET['i'] && @$_GET['s']){
 	$file = $dataDir . '/' . $_GET['i'] . '.sequence';
 	file_put_contents($file, $_GET['s']);
 
@@ -12,7 +34,7 @@ if(@$_GET['a'] == 'set' && @$_GET['i'] && @$_GET['s']){
 	$file = $dataDir . '/' . $_GET['i'] . '.sequence';
 	print file_get_contents($file);
 	die();
-} else if(@$_GET['a'] == 'del' && @$_GET['i'] ){
+} else if(@$_SERVER['PHP_AUTH_USER'] == 'dh' && @$_GET['a'] == 'del' && @$_GET['i'] ){
 	$file = $dataDir . '/' . $_GET['i'] . '.sequence';
 	unlink($file);	
 } else if(@$_GET['a'] == 'load' && @$_GET['i']){
@@ -20,19 +42,30 @@ if(@$_GET['a'] == 'set' && @$_GET['i'] && @$_GET['s']){
 	$a = $_GET['a'];
 	$s = file_get_contents($file);
 	$i = $_GET['i'];
+} else if( @$_GET['a'] || @$_GET['i'] || @$_GET['s'] ){
+	http_response_code(400);
+	print 'Bad request';
 }
 ?><html>
 <head>
 </head>
 <body style="padding: 1em;">
-	<h2>Manage</h2>	
+	<h2>Screen Manager</h2>	
 	<form action="#" method="GET">
-	<p>		<input type="text" name="i" value="<?php print $i; ?>" placeholder="i"/ >
-	<p>		<textarea name="s" placeholder="s" ><?php print $s; ?></textarea>		
-	<p>		<input type="submit" value="get" name="a">
-		<input type="submit" value="set" name="a">
-		<input type="submit" value="del" name="a">
-		<input type="submit" value="load" name="a">
+		<div class="form-group">
+		<label for="i">Screen</label>
+		<input class="form-control" type="text" name="i" value="<?php print $i; ?>" placeholder="i"/ >
+		</div>
+		<div class="form-group">
+		<label for="s">Sequence</label>
+		<textarea class="form-control" name="s" placeholder="s" ><?php print $s; ?></textarea>		
+		</div>
+		<div class="form-group">
+		<input class="btn btn-primary" type="submit" value="load" name="a">
+		<input class="btn btn-primary" type="submit" value="get" name="a">
+		<input class="btn btn-danger" type="submit" value="set" name="a">
+		<input class="btn btn-danger" type="submit" value="del" name="a">
+		</div>
 	</form>
 	<h2>List</h2>
 	<ul>
@@ -51,5 +84,8 @@ if(@$_GET['a'] == 'set' && @$_GET['i'] && @$_GET['s']){
 		
 	print $thelist;?>
 </ul>
+<link rel="stylesheet" href="styles/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="scripts/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </body>
 </html>

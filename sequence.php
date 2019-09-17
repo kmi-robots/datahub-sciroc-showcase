@@ -7,6 +7,10 @@ $config = parse_ini_file (dirname(__FILE__) . '/config.ini');
 $usr = $config['usr'];
 $pwd = $config['pwd'];
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 if(!isset($_SERVER['PHP_AUTH_USER'])){
 	header('WWW-Authenticate: Basic realm="My Realm"');
 	header('HTTP/1.0 401 Unauthorized');

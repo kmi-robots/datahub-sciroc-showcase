@@ -135,35 +135,35 @@ div.monitor.row {
 	color: #029EB1;
 }
 
-.monitor .episode-E03 iframe { /* COSTA */
+.monitor .episode-E03 iframe.monitor { /* COSTA */
 	border: 1vw solid;
 	border-top-color: #DDD;
 	border-bottom-color: maroon;
 	border-left-color: green;
 	border-right-color: #DDD; 
 }
-.monitor .episode-E04 iframe { /* ELEVATOR */
+.monitor .episode-E04 iframe.monitor { /* ELEVATOR */
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: black;
 	border-left-color: #EEE;
 	border-right-color: green; 
 }		
-.monitor .episode-E07 iframe { /* OCADO */
+.monitor .episode-E07 iframe.monitor { /* OCADO */
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: #DDD;
 	border-left-color: navy;
 	border-right-color: #DDD; 	
 }
-.monitor .episode-E10 iframe { /* DOOR */
+.monitor .episode-E10 iframe.monitor { /* DOOR */
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: #DDD;
 	border-left-color: black;
 	border-right-color: green; 	
 }
-.monitor .episode-E12 iframe { /* DRONES */
+.monitor .episode-E12 iframe.monitor { /* DRONES */
 	border: 15px solid;
 	border-top-color: #DDD;
 	border-bottom-color: #DDD;

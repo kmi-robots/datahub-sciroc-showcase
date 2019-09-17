@@ -78,7 +78,7 @@ h1.title img,
 
 iframe.monitor {
 	height: 90%;
-	width: 100%;
+	width: 96%;
 	border: none;
 /*	border: 5px solid #7FA6AB;*/
 	overflow: hidden;
@@ -135,7 +135,41 @@ div.monitor.row {
 	color: #029EB1;
 }
 
-			
+.monitor .episode-E03 iframe { /* COSTA */
+	border: 15px solid;
+	border-top-color: #DDD;
+	border-bottom-color: maroon;
+	border-left-color: green;
+	border-right-color: #DDD; 
+}
+.monitor .episode-E04 iframe { /* ELEVATOR */
+	border: 15px solid;
+	border-top-color: #DDD;
+	border-bottom-color: black;
+	border-left-color: #EEE;
+	border-right-color: green; 
+}		
+.monitor .episode-E07 iframe { /* OCADO */
+	border: 15px solid;
+	border-top-color: #DDD;
+	border-bottom-color: #DDD;
+	border-left-color: green;
+	border-right-color: #DDD; 	
+}
+.monitor .episode-E10 iframe { /* DOOR */
+	border: 15px solid;
+	border-top-color: #DDD;
+	border-bottom-color: #DDD;
+	border-left-color: black;
+	border-right-color: green; 	
+}
+.monitor .episode-E12 { /* DRONES */
+	border: 15px solid;
+	border-top-color: #DDD;
+	border-bottom-color: #DDD;
+	border-left-color: black;
+	border-right-color: green;	
+}
 .static {
 	vertical-align: middle;
 }

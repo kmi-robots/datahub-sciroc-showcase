@@ -79,7 +79,7 @@ h1.title img,
 iframe.monitor {
 	height: 90%;
 	width: 96%;
-	border: none;
+	border: 15px solid #DDD;
 /*	border: 5px solid #7FA6AB;*/
 	overflow: hidden;
 }

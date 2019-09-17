@@ -183,7 +183,7 @@
 	<template id="monitor-tmpl">
 		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}}</h1>
 		<div class="monitor row ">
-			<div class="location col-lg-6">
+			<div class="location col-lg-6 episode-{{code}}">
 				<h2>Location</h2>
 				<iframe class="monitor"
 					data-src="//{{hostname}}/sciroc-resources/map.php"></iframe>

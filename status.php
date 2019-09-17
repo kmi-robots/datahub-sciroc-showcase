@@ -53,7 +53,7 @@ function getStatusMessages( $service, $team, $episode, $key ){
 	return json_decode($html);
 }
 
-$action = $_GET['action'] || 'status';
+$action = @$_GET['action'] || 'status';
 $teams = [
 	"uc3m",
 	"socrob",

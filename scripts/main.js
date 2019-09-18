@@ -292,8 +292,8 @@ var Trials = async function( episode, keep, fade){
 				var start = moment(t['start-time']);
 				var end = moment(t['end-time']);
 				t.dow = start.format('dddd');
-				t.stime = start.format('h:mm');
-				t.etime = end.format('h:mm');
+				t.stime = start.format('h:mm a');
+				t.etime = end.format('h:mm a');
 				o.trials.push(t);
 			}
 		}

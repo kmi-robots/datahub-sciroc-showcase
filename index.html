@@ -243,6 +243,43 @@
 		</div>
 	</template>
 	
+	<script id="trials-tmpl" type="text/plain">
+		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - Trials</h1>
+		<p>{{trials.length}} trials performed.
+		<div class="leaderboard">
+			<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Team</th>
+					<th>Day</th>
+					<th>Start</th>
+					<th>End</th>
+					<th>Duration</th>
+<!--				<th>Penalties</th> -->
+					<th>Score</th>
+				</tr>
+			</thead>
+
+			{{#trials.length}}
+			{{#trials}}
+			<tr>
+				<th>#{{position}}</th>
+				<td>{{team.label}}</td>
+				<td>{{dow}}</td>
+				<td>{{stime}}</td>	
+				<td>{{etime}}</td>
+				<td>{{duration}}s</td>
+<!--			<td>{{penalties}}</td> -->
+				<td>{{score}}</td>
+				</tr>
+			{{/trials}}
+			{{/trials.length}}
+		</table>
+
+		</div>
+	</script>
+	
 	<template id="event-tmpl">
 		<!-- <h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}}</h1>
 		<div class="events row ">

@@ -3,22 +3,22 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 //
-var Teams = [
-	{id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es", description: "Robotics Lab UC3, Universidad Carlos III de Madrid (Spain)"},
-	{id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt", description: "Instituto Superior Técnico (Portugal)"},
-	{id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es", description: "Rey Juan Carlos University (Spain)"},
+var Teams = {
+	"uc3m": {id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es", description: "Robotics Lab UC3, Universidad Carlos III de Madrid (Spain)"},
+	"socrob": {id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt", description: "Instituto Superior Técnico (Portugal)"},
+	"gentlebots": {id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es", description: "Rey Juan Carlos University (Spain)"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
-	{id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb", description: "Bristol Robotics Laboratory (UK)"},
-	{id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es", description: "Everbots – NTT Inc. (Spain)"},
-	{id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR", flag: "gb", description: "Leeds Autonomous Service Robots – University of Leeds (UK)"},
-	{id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots", flag: "de", description: "Hochschule Bonn-Rhein-Sieg (Germany)"},
-	{id: "catie", robot: "catie", color: "84BFCB", label: "CATIE", flag: "fr", description: "CATIE Robotics (France)"},
+	"hearts": {id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb", description: "Bristol Robotics Laboratory (UK)"},
+	"entity": {id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es", description: "Everbots – NTT Inc. (Spain)"},
+	"leedsasr": {id: "leedsasr", robot: "leedsasr", color: "7BCDD7", label: "LASR", flag: "gb", description: "Leeds Autonomous Service Robots – University of Leeds (UK)"},
+	"bitbots": {id: "bitbots", robot: "bitbots", color: "2C5B62", label: "b-it-bots", flag: "de", description: "Hochschule Bonn-Rhein-Sieg (Germany)"},
+	"catie": {id: "catie", robot: "catie", color: "84BFCB", label: "CATIE", flag: "fr", description: "CATIE Robotics (France)"},
 	// {id: "homer", robot: "homer", color: "029EB1", label: "Homer"},
 	// {id: "a3t", robot: "a3t", color: "003F49", label: "A3T"},
-	{id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr", flag: "gb", description: "TeamBathDrones research – University of Bath (UK)"},
+	"bathdrones": {id: "bathdrones", robot: "bathdrones", color: "", label: "TBDr", flag: "gb", description: "TeamBathDrones research – University of Bath (UK)"},
 	// {id: "spqr", robot: "spqr", color: "17A09B", episodes: ["E03", "E12"]},
-	{id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero", flag: "gb", description: "University of the West of England (UK)"}
-];
+	"uweaero": {id: "uweaero", robot: "uweaero", color: "E1EFF2", label: "UWE Aero", flag: "gb", description: "University of the West of England (UK)"}
+};
 var Episodes = {
 	"E03": "EPISODE3",
 	"E04": "EPISODE4",
@@ -258,60 +258,47 @@ var EventMessage = async function( keep, fade){
 	});
 	
 }
-var Leaderboard = async function( episode, keep, fade){
-	console.log("leaderboard");
+var Trials = async function( episode, keep, fade){
+	// console.log("trials");
 	while(!Status.ready){
 		await sleep(500);
 	}
 	var epi = Episodes[episode];
 	// Get the last message
 	var ts = Math.round((new Date()).getTime() / 1000);
-	var jqxhr = $.getJSON( "leaderboard.php?episode=" + epi + "&nocache=" + ts, function() {
+	var jqxhr = $.getJSON( "trials.php?episode=" + epi + "&nocache=" + ts, function() {
 		
 	})
 	.done(async function(_data) {
 		var o = {};
-		if(!_data[0]){
+		if(!_data){
 			return;
 		}
-		console.log("leaderboard",_data);
-		o = _data[0];
-		var episode = Episodes.keyOf(o.episode);
-		o.message = {};
-		o.message.episode = episode;
-		var _timestamp = parseInt(o["_timestamp"]);
-		for (var x in Teams){
-			if (Teams[x].id == o.team){
-				o.message.team = Teams[x].label;
-				break;
+		// console.log("leaderboard",_data);
+		o.trials = [];
+		o.code = episode;
+		o.title = 'Trials';
+		o.robot = Status.messages[episode].robot;
+		// console.log(o);
+		// console.log("o",o);
+		var pos = 0;
+		for(var z in _data){
+			var t = _data[z];
+			t.team = Teams[t.team];
+			if(t.duration > 0){
+				pos++;
+				t.position = pos;
+				// .format('MMMM Do YYYY, h:mm:ss a');
+				var start = moment(t['start-time']);
+				var end = moment(t['end-time']);
+				t.dow = start.format('dddd');
+				t.stime = start.format('h:mm');
+				t.etime = end.format('h:mm');
+				o.trials.push(t);
 			}
 		}
-		// if it is a new message
-		o.message.moment = moment.unix(_timestamp).fromNow();
-		o.message.message = o["@type"] + ' received ';
-		switch (o.type) {
-			case 'Menu':
-			case 'Table':
-			case 'Product':
-			case 'Order':
-			case 'Shop':
-			case 'InventoryItem':
-			case 'InventoryOrder':
-			case 'InventoryItemOrder':
-			case 'Patient':
-			case 'ImageReport':	
-			case 'Team':
-			case 'Episode':
-			case 'Event':
-			case 'Trial':
-			case 'Judgement':
-			case 'RobotStatus':
-			case 'RobotLocation':
-			default:
-				o.image = Status.messages[episode].robot; // Episode Icon			
-		}
-		// console.log(o);
-		await Showcase.present('event-tmpl',"slide", o, fade);
+		console.log("o",o);
+		await Showcase.present('trials-tmpl',"slide", o, fade);
 		await sleep(keep);
 	})
 	.always(function() {
@@ -403,10 +390,10 @@ Controller.sequence = function(s){
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
 				await RobotMessage(ep, waitFor, fade);
 			}
-		} else if ( p.startsWith('leaderboard') && p.indexOf(':') > -1){
+		} else if ( p.startsWith('trials') && p.indexOf(':') > -1){
 			var ep = p.split(':')[1];
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
-				await Leaderboard(ep, waitFor, fade);
+				await Trials(ep, waitFor, fade);
 			}
 		} else if ( p.startsWith('monitor') && p.indexOf(':') > -1){
 			var ep = p.split(':')[1];

@@ -1,16 +1,14 @@
 <?php
 $config = parse_ini_file (dirname(__FILE__) . '/config.ini');
-$key = $config['log_key'];
-$service = $config['log_service'];
+$key = $config['key'];
+$service = $config['trials_service'];
 
 // Get last messages for each team / episode.
 
 
 
-function getEventMessages( $service, $episode, $key ){
+function getTrials( $service, $key){
 	
-	$service = $service . "" . "?limit=1";
-
 	// Create a new cURL resource
 	$curl = curl_init(); 
 
@@ -53,7 +51,7 @@ function getEventMessages( $service, $episode, $key ){
 	return json_decode($html);
 }
 
-$action = @$_GET['action'] || 'event';
+$action = @$_GET['action'] || 'trials';
 $teams = [
 	"uc3m",
 	"socrob",
@@ -71,21 +69,27 @@ $teams = [
 	"uweaero"
 ];
 switch($action){
-	case 'event':
+	case 'trials':
 		// cURL executed successfully
-		$episode = $_GET['episode'];
+		$episode = @$_GET['episode'];
 		$status = [];
-
-		$json = getEventMessages( $service , $episode, $key );
+		$json = getTrials( $service, $key );
 		if(!is_array($json)){
 			// Error
 		}else{
-			$status = array_merge($status, $json);
+			foreach($json as $trial){
+				$arr = [];
+				if(  ( empty($episode) || ($trial->episode == $episode) )
+				&& preg_match('/trial[0-9]/', $trial->_id, $arr) == 1){
+					array_push($status,$trial);
+				}
+			}
+			// $status = array_merge($status, $json);
 		}
-			header ( "Content-type: application/json" );
+		header ( "Content-type: application/json" );
 		function cmp($a, $b)
 		{
-			return intVal($a->_timestamp) > intval($b->_timestamp);
+			return intVal($a->score) < intval($b->score);
 		}
 		usort($status, "cmp");
 		// $status = array_slice($status, -10);

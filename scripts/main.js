@@ -131,8 +131,8 @@ Showcase.present = async function(){
 	//
 	await $("body").fadeOut(speed/2, async function(){
 		// await sleep(1000);
-		var output = Mustache.render($("#"+template).html(), data);
-		$("#"+target).html(output);
+		var output = Mustache.render($( "#" + template).html(), data);
+		$("#" + target).html(output);
 		// await sleep(1000);
 		$("body").fadeIn(speed/2, callback);
 	});
@@ -173,7 +173,6 @@ var Episode = async function(episode, keep, fade){
 	await sleep(keep);
 }
 var Info = async function(text, keep, fade){
-	// 
 	var o = {};
 	o.text = text;
 	await Showcase.present('info-tmpl',"slide", o, fade);
@@ -199,9 +198,65 @@ var RobotMessage = async function(episode, keep, fade){
 	// o.message.team = o.message.team.toUpperCase();
 	o.episode = episode;
 	o.image = Status.messages[episode].robot;
-	// console.log(o);
 	await Showcase.present('robot-tmpl',"slide", o, fade);
 	await sleep(keep);
+}
+var EventMessage = async function( keep, fade){
+	while(!Status.ready){
+		await sleep(500);
+	}
+	// Get the last message
+	var jqxhr = $.getJSON( "event.php", function() {
+		
+	})
+	.done(async function(_data) {
+		var o = {};
+		if(!_data[0]){
+			return;
+		}
+		o = _data[0];
+		var episode = Episodes.keyOf(o.episode);
+		o.message = {};
+		o.message.episode = episode;
+		var _timestamp = parseInt(o["_timestamp"]);
+		for (var x in Teams){
+			if (Teams[x].id == o.team){
+				o.message.team = Teams[x].label;
+				break;
+			}
+		}
+		// if it is a new message
+		o.message.moment = moment.unix(_timestamp).fromNow();
+		o.message.message = o["@type"] + ' received ';
+		switch (o.type) {
+			case 'Menu':
+			case 'Table':
+			case 'Product':
+			case 'Order':
+			case 'Shop':
+			case 'InventoryItem':
+			case 'InventoryOrder':
+			case 'InventoryItemOrder':
+			case 'Patient':
+			case 'ImageReport':	
+			case 'Team':
+			case 'Episode':
+			case 'Event':
+			case 'Trial':
+			case 'Judgement':
+			case 'RobotStatus':
+			case 'RobotLocation':
+			default:
+				o.image = Status.messages[episode].robot; // Episode Icon			
+		}
+		// console.log(o);
+		await Showcase.present('event-tmpl',"slide", o, fade);
+		await sleep(keep);
+	})
+	.always(function() {
+		// Status.busy = false;
+	});
+	
 }
 var InfoTeams = async function(keep, fade){
 	// 
@@ -298,6 +353,10 @@ Controller.sequence = function(s){
 					await Showcase.present('help-tmpl',"slide", Controller.sequences, fade);
 					await sleep(waitFor);
 					break;
+				case 'event':
+					await EventMessage(waitFor, fade);
+					await sleep(waitFor);
+					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);
 					break;
@@ -315,7 +374,6 @@ Controller.sequence = function(s){
 					await Info("SciRoc is a EU-H2020 funded project \nbringing robot tournaments to city contexts", waitFor, fade);
 					break;
 				case 'info2':
-					// cooperate and interact with citizens,\n accomplishing tasks such as assisting customers,\n providing professional services, \nand supporting during emergency situations.
 					await Info("Autonomous robots compete in five tasks: \ntaking an elevator, deliverying medications, \nopening doors, serving customers in a coffee shop, \nand picking and packing items in a grocery store", waitFor, fade);
 					break;
 				case 'E03':
@@ -368,12 +426,12 @@ Controller.start = async function(){
 	Controller.loop(Status.refreshMessages, 3000);
 	Controller.reload = false;
 	Controller.maptimeout = to;
-	// console.log('s',s);
+
 	if(s == 'screen'){
 		Controller.reload = true;
-		$.get( "data/" + i + ".sequence")
+		var ts = Math.round((new Date()).getTime() / 1000);
+		$.get( "data/" + i + ".sequence?nocache=" + ts)
 		.done(async function(_data) {
-			// console.log(_data);
 			Controller.sequence(_data);
 		});
 	}else if(s){

@@ -38,7 +38,12 @@
 	<template id="advert-tmpl">
 		<div class="advert"></div>
 	</template>
-	
+
+	<template id="showcase">
+		<center>
+			<h2>https://api.mksmart.org/sciroc-showcase/</h2>
+		</center>
+	</template>
 	<template id="help-tmpl">
 		<div class="help row">
 			<div class="col-lg-4">			
@@ -192,6 +197,26 @@
 			</div>
 		</div>
 	</template>
+	
+	<template id="event-tmpl">
+		<!-- <h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - {{title}}</h1>
+		<div class="events row ">
+			<div class="location col-lg-6 episode-{{code}}">
+				<h2>Location</h2>
+				<iframe class="monitor"
+					data-src="//{{hostname}}/sciroc-resources/map.php"></iframe>
+			</div>
+			<div class="status col-lg-6 status-target episode-{{code}}">
+			</div>
+		</div> -->
+		<div class="event">
+			<center>
+				<span class="message"><tt>{{@id}}</tt><br/><tt>{{message.message}}</tt></span>
+				<span class="moment">{{message.team}}  // {{message.episode}} // {{message.moment}}</span>
+			</center>
+			<img src="images/{{image}}.png" />
+		</div>
+	</template>	
 	
 	<template id="messages-tmpl">
 				<h2>Status</h2>		

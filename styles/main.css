@@ -294,6 +294,14 @@ img.ocado-tech-logo,img.costa {
 	background-size: contain;
 	background-repeat: no-repeat;
 }
+.simposium {
+	width: auto;
+	height: 100%;
+	background-image: url("../images/symposium-advert-01.png");
+	background-position: center center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
 /*div.slider{
 	padding-top: 7vw;
 	background-color: red;

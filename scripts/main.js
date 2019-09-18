@@ -258,6 +258,67 @@ var EventMessage = async function( keep, fade){
 	});
 	
 }
+var Leaderboard = async function( episode, keep, fade){
+	console.log("leaderboard");
+	while(!Status.ready){
+		await sleep(500);
+	}
+	var epi = Episodes[episode];
+	// Get the last message
+	var ts = Math.round((new Date()).getTime() / 1000);
+	var jqxhr = $.getJSON( "leaderboard.php?episode=" + epi + "&nocache=" + ts, function() {
+		
+	})
+	.done(async function(_data) {
+		var o = {};
+		if(!_data[0]){
+			return;
+		}
+		console.log("leaderboard",_data);
+		o = _data[0];
+		var episode = Episodes.keyOf(o.episode);
+		o.message = {};
+		o.message.episode = episode;
+		var _timestamp = parseInt(o["_timestamp"]);
+		for (var x in Teams){
+			if (Teams[x].id == o.team){
+				o.message.team = Teams[x].label;
+				break;
+			}
+		}
+		// if it is a new message
+		o.message.moment = moment.unix(_timestamp).fromNow();
+		o.message.message = o["@type"] + ' received ';
+		switch (o.type) {
+			case 'Menu':
+			case 'Table':
+			case 'Product':
+			case 'Order':
+			case 'Shop':
+			case 'InventoryItem':
+			case 'InventoryOrder':
+			case 'InventoryItemOrder':
+			case 'Patient':
+			case 'ImageReport':	
+			case 'Team':
+			case 'Episode':
+			case 'Event':
+			case 'Trial':
+			case 'Judgement':
+			case 'RobotStatus':
+			case 'RobotLocation':
+			default:
+				o.image = Status.messages[episode].robot; // Episode Icon			
+		}
+		// console.log(o);
+		await Showcase.present('event-tmpl',"slide", o, fade);
+		await sleep(keep);
+	})
+	.always(function() {
+		// Status.busy = false;
+	});
+	
+}
 var InfoTeams = async function(keep, fade){
 	// 
 	var o = {};
@@ -342,6 +403,11 @@ Controller.sequence = function(s){
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
 				await RobotMessage(ep, waitFor, fade);
 			}
+		} else if ( p.startsWith('leaderboard') && p.indexOf(':') > -1){
+			var ep = p.split(':')[1];
+			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
+				await Leaderboard(ep, waitFor, fade);
+			}
 		} else if ( p.startsWith('monitor') && p.indexOf(':') > -1){
 			var ep = p.split(':')[1];
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
@@ -355,7 +421,6 @@ Controller.sequence = function(s){
 					break;
 				case 'event':
 					await EventMessage(waitFor, fade);
-					await sleep(waitFor);
 					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);

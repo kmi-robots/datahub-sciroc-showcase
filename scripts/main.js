@@ -260,9 +260,9 @@ var EventMessage = async function( keep, fade){
 }
 var Trials = async function( episode, keep, fade){
 	// console.log("trials");
-	while(!Status.ready){
-		await sleep(500);
-	}
+	// while(!Status.ready){
+	// 	await sleep(500);
+	// }
 	var epi = Episodes[episode];
 	// Get the last message
 	var ts = Math.round((new Date()).getTime() / 1000);

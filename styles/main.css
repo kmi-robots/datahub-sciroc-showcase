@@ -321,3 +321,56 @@ div.help ul {
 .trials p{
 	font-size: 1.8vw;
 }
+
+#grid {
+	padding-top: 12vw;
+/*  background: #EEE;*/
+/*  max-width: 1200px;*/
+	margin: auto;
+}
+
+/* clearfix */
+#grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+#grid .robot center {
+	font-size: 1.6vw;
+}
+#grid .grid-item .robot img{
+	height: 30%;
+	width: auto;
+	align-self: center;
+	
+}
+#grid .grid-item img{
+	width: 100%;
+	vertical-align:middle;
+	height: auto;
+}
+#grid .robot .message{
+	font-size: 1.6vw;
+}
+#grid .robot .moment {
+	font-size: 1vw;
+}
+/* ---- grid-item ---- */
+
+.grid-item {
+  float: left;
+/*  background: #D26;*/
+  border: none;
+/*  border-color: hsla(0, 0%, 0%, 0.5);*/
+/*  border-radius: 5px;*/
+}
+
+.grid-item--width2 { width: 18vw; }
+/*.grid-item--width3 { width: 4vw; }
+.grid-item--width4 { width: 640px; }
+*/
+.grid-item--height2 { height: 18vw; }
+/*.grid-item--height3 { height: 260px; }
+.grid-item--height4 { height: 360px; }
+*/

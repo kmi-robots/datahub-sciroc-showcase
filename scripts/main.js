@@ -178,6 +178,7 @@ var Info = async function(text, keep, fade){
 	await Showcase.present('info-tmpl',"slide", o, fade);
 	await sleep(keep);
 }
+
 var RobotMessage = async function(episode, keep, fade){
 	while(!Status.ready){
 		await sleep(500);
@@ -257,6 +258,124 @@ var EventMessage = async function( keep, fade){
 		// Status.busy = false;
 	});
 	
+}
+var EventGrid = async function(keep,fade){
+	// console.log('eventgrid');	
+	var stop = false;
+	var getItemElement = function (_data) {
+		// console.log('building', _data);
+		var o = {};
+		o.message = {};
+		o.message.message = _data.message;
+		// o.message.team = o.message.team.toUpperCase();
+		o.episode = Episodes.keyOf(_data.episode);
+		o.image = Status.messages[o.episode].robot;
+		o.message.team = Teams[_data.team].label;
+		o.message.moment = moment.unix(_data._timestamp).fromNow();
+		var output = Mustache.render($( "#robot-tmpl").html(), o);
+		var elem = document.createElement('div');
+		elem.innerHTML = output;
+		var widthClass = 'grid-item--width2' ;
+		var heightClass = 'grid-item--height2' ;
+		elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
+		return elem;
+	}
+	
+	var getImageElement = function(epi){
+		var elem = document.createElement('div');
+		elem.innerHTML = '<img src="images/' + epi + '.jpg"/>';
+		var widthClass = 'grid-item--width2' ;
+		var heightClass = 'grid-item--height2' ;
+		elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
+		return elem;
+	}
+
+	var limit = 10;
+	var queries = {
+		'E03': '@type:RobotStatus,episode:EPISODE3',
+		'E04': '@type:RobotStatus,episode:EPISODE4',
+		'E07': '@type:RobotStatus,episode:EPISODE7',
+		'E10': '@type:RobotStatus,episode:EPISODE10',
+		'E12': '@type:RobotStatus,episode:EPISODE12'	
+	}
+	var rotate = [
+		'E03',
+		'E04',
+		'E07',
+		'E10',
+		'E12'	
+	]
+	var qidx = 0;
+	var isQuery = false;
+	await Showcase.present('eventgrid-tmpl',"slide", {}, fade, async function(){
+		var $grid = $('#grid').masonry({
+		  // columnWidth: 160,
+		  itemSelector: '.grid-item'
+		});		
+		while(!stop){
+
+			if(!isQuery){
+				var elem = {};
+				if(qidx >= 5){
+					elem = getImageElement(rotate[0]);
+					qidx = 0;
+				}else{
+					elem = getImageElement(rotate[qidx]);
+				}
+				
+				var $elem = $( elem );
+				var elements = $('#grid .grid-item');
+			
+				while($('#grid .grid-item').length >= 5){
+					// console.log("elements", elements.length);
+					$grid.masonry('remove', elements.first());
+					elements = $('#grid .grid-item');
+					await sleep(1000);
+				}
+				$grid.append( $elem ).masonry( 'appended', $elem ).masonry('layout');
+				await sleep(2000);
+				
+				isQuery = true;
+				continue;
+			}
+			
+			isQuery = false;
+			var query = '';
+			if(qidx >= 5){
+				query = queries[rotate[0]];
+			}else{
+				query = queries[rotate[qidx]];
+			}
+			qidx++;
+			// console.log("query", "event.php?" + query);
+			// Build new Element
+			// Get the last message
+			await $.getJSON( "event.php?query=" + query, function() {
+		
+			})
+			.done(async function(_data) {
+				// console.log('_data',_data);
+				if(typeof _data[0] === 'undefined'){
+					return;
+				}
+				var elem = getItemElement(_data[0]);
+				var $elem = $( elem );
+				var elements = $('#grid .grid-item');
+			
+				while($('#grid .grid-item').length >= 5){
+					// console.log("elements", elements.length);
+					$grid.masonry('remove', elements.first());
+					elements = $('#grid .grid-item');
+					await sleep(1000);
+				}
+				$grid.append( $elem ).masonry( 'appended', $elem ).masonry('layout');
+				await sleep(2000);
+			});
+			await sleep(2000);
+		}
+	});
+	await sleep(keep);
+	// stop = true;
 }
 var Trials = async function( episode, keep, fade){
 	// console.log("trials");
@@ -411,6 +530,9 @@ Controller.sequence = function(s){
 					break;
 				case 'event':
 					await EventMessage(waitFor, fade);
+					break;
+				case 'grid':
+					await EventGrid(waitFor, fade);
 					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);

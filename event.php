@@ -7,9 +7,9 @@ $service = $config['log_service'];
 
 
 
-function getEventMessages( $service, $episode, $key ){
+function getEventMessages( $service, $query, $key, $limit = 1 ){
 	
-	$service = $service . "" . "?limit=1";
+	$service = $service . "" . "?limit=" . $limit;
 
 	// Create a new cURL resource
 	$curl = curl_init(); 
@@ -23,6 +23,17 @@ function getEventMessages( $service, $episode, $key ){
 	// Set a different user agent string (SciRoc Showcase)
 	curl_setopt($curl, CURLOPT_USERAGENT, 'SciRoc Showcase'); 
 	curl_setopt($curl, CURLOPT_USERPWD, $key . ":" . $key);  
+
+	if(!empty($query)){
+		$q = new stdClass();
+		$pairs = explode(',',$query);
+		foreach($pairs as $pair){
+			$p = explode(':',$pair);
+			$q->{$p[0]} = $p[1];			
+		}
+		curl_setopt($curl, CURLOPT_POST, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($q));
+	}
 	// Follow redirects, if any
 	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); 
 	// Fail the cURL request if response code = 400 (like 404 errors) 
@@ -73,10 +84,8 @@ $teams = [
 switch($action){
 	case 'event':
 		// cURL executed successfully
-		$episode = $_GET['episode'];
 		$status = [];
-
-		$json = getEventMessages( $service , $episode, $key );
+		$json = getEventMessages( $service , @$_GET['query'] ?  @$_GET['query'] : false, $key, @$_GET['limit'] ? @$_GET['limit']  : '1' );
 		if(!is_array($json)){
 			// Error
 		}else{

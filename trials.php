@@ -11,11 +11,10 @@ function getTrials( $service, $key){
 	
 	// Create a new cURL resource
 	$curl = curl_init(); 
-
 	if (!$curl) {
 	    die("Couldn't initialize a cURL handle"); 
 	}
-
+	// echo $service; die();
 	// Set the file URL to fetch through cURL
 	curl_setopt($curl, CURLOPT_URL, $service);
 	// Set a different user agent string (SciRoc Showcase)
@@ -73,6 +72,7 @@ switch($action){
 		// cURL executed successfully
 		$episode = @$_GET['episode'];
 		$status = [];
+		$service = $service . '?query=%7B%22episode%22%3A%22' . $episode . '%22%7D';
 		$json = getTrials( $service, $key );
 		if(!is_array($json)){
 			// Error
@@ -89,7 +89,7 @@ switch($action){
 		header ( "Content-type: application/json" );
 		function cmp($a, $b)
 		{
-			return intVal($a->score) < intval($b->score);
+			return intVal($a->achievements) < intval($b->achievements);
 		}
 		usort($status, "cmp");
 		// $status = array_slice($status, -10);

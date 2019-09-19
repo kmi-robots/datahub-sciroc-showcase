@@ -245,13 +245,12 @@
 	</template>
 	
 	<script id="trials-tmpl" type="text/plain">
-		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - Trials</h1>
-		<p>{{trials.length}} trials performed.
 		<div class="trials">
+		<h1 data-episode="{{code}}" class="title"><img src="images/{{robot}}.png"/>{{code}} - Trials</h1>
 			<table class="table">
 			<thead>
 				<tr>
-					<th></th>
+					<th>({{trials.length}})</th>
 					<th>Team</th>
 					<th>Day</th>
 					<th>Start</th>

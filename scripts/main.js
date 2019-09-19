@@ -299,12 +299,12 @@ var Trials = async function( episode, keep, fade){
 		}
 		// console.log("o",o);
 		await Showcase.present('trials-tmpl',"slide", o, fade);
-		await sleep(keep);
+		// await sleep(keep);
 	})
 	.always(function() {
 		// Status.busy = false;
 	});
-	
+	await sleep(keep);	
 }
 var InfoTeams = async function(keep, fade){
 	// 

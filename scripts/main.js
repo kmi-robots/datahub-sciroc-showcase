@@ -297,7 +297,7 @@ var Trials = async function( episode, keep, fade){
 				o.trials.push(t);
 			}
 		}
-		console.log("o",o);
+		// console.log("o",o);
 		await Showcase.present('trials-tmpl',"slide", o, fade);
 		await sleep(keep);
 	})
@@ -309,7 +309,10 @@ var Trials = async function( episode, keep, fade){
 var InfoTeams = async function(keep, fade){
 	// 
 	var o = {};
-	o.teams = Teams;
+	o.teams = [];
+	for (var t in Teams){
+		o.teams.push(Teams[t]);
+	}
 	await Showcase.present('teams-tmpl',"slide", o, fade);
 	await sleep(keep);
 }

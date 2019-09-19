@@ -6,7 +6,7 @@ function sleep(ms) {
 var Teams = {
 	"uc3m": {id: "uc3m", robot: "uc3m", color: "EE7633", label: "UC3M", flag: "es", description: "Robotics Lab UC3, Universidad Carlos III de Madrid (Spain)"},
 	"socrob": {id: "socrob", robot: "socrob" , color: "FBCEAE", label: "SocRob", flag: "pt", description: "Instituto Superior Técnico (Portugal)"},
-	"gentlebots": {id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es", description: "Rey Juan Carlos University (Spain)"},
+	"gentlebots": {id: "gentlebots", robot: "gentlebots", color: "55AAAA", label: "Gentlebots", flag: "es", description: "Rey Juan Carlos University and University of León (Spain)"},
 	// {id: "matrix", robot: "matrix", color: "09545F", episodes: ["E03", "E12"]},
 	"hearts": {id: "hearts", robot: "hearts", color: "DBEEF1", label: "HEARTS", flag: "gb", description: "Bristol Robotics Laboratory (UK)"},
 	"entity": {id: "entity", robot: "entity", color: "77AB39", label: "eNTiTy", flag: "es", description: "Everbots – NTT Inc. (Spain)"},

@@ -179,6 +179,64 @@ var Info = async function(text, keep, fade){
 	await Showcase.present('info-tmpl',"slide", o, fade);
 	await sleep(keep);
 }
+var DroneImageStrip = async function(keep,fade){
+	var stop = false;
+	var blocks = 5;
+	await Showcase.present('eventgrid-tmpl', "slide", {}, fade, async function(){
+		var lastObject = {};
+		lastObject._id = false;
+
+		var $grid = $('#grid').masonry({
+		  itemSelector: '.grid-item'
+		});	
+		var getItemElement = function(_data){
+			var o = {};
+			o.data = _data[0].base64;
+			o.team = Teams[_data[0].team].label;
+			o.episode = 'E12';
+			o.moment = moment.unix(_data[0]._timestamp).fromNow();
+			// console.log(o);
+			var output = Mustache.render($( "#drone-tmpl").html(), o);
+			var elem = document.createElement('div');
+			elem.innerHTML = output;
+			var widthClass = 'grid-item--width2' ;
+			var heightClass = 'grid-item--height2' ;
+			elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
+			return elem;
+		}
+		while(!stop){
+			await $.getJSON( "event.php?query=@type:ImageReport&limit=1", function() {
+			})
+			.done(async function(_data) {
+				console.log(_data[0]._id , lastObject._id);
+				if (lastObject._id && _data[0]._id.$oid == lastObject._id){
+					return;
+				}else {
+					lastObject._id = _data[0]._id.$oid;
+				}
+				// console.log('_data',_data);
+				if(typeof _data[0] === 'undefined'){
+					return;
+				}
+				var elem = getItemElement(_data);
+				var $elem = $( elem );
+				var elements = $('#grid .grid-item');
+		
+				while($('#grid .grid-item').length >= blocks){
+					// console.log("elements", elements.length);
+					$grid.masonry('remove', elements.first());
+					elements = $('#grid .grid-item');
+					await sleep(1000);
+				}
+				$grid.append( $elem ).masonry( 'appended', $elem ).masonry('layout');
+				await sleep(2000);
+			});
+			await sleep(2000);
+		}
+	});
+	await sleep(keep);
+	stop = true;
+}
 var DroneImage = async function(keep, fade){
 	// Get the last message
 	var jqxhr = $.getJSON( "event.php?query=@type:ImageReport&limit=1", function() {
@@ -282,8 +340,8 @@ var EventMessage = async function( keep, fade){
 	.always(function() {
 		// Status.busy = false;
 	});
-	
 }
+
 var EventGrid = async function(keep,fade){
 	// console.log('eventgrid');	
 	var stop = false;
@@ -569,6 +627,9 @@ Controller.sequence = function(s){
 					break;
 				case 'drone':
 					await DroneImage(waitFor, fade);
+					break;
+				case 'drones':
+					await DroneImageStrip(waitFor, fade);
 					break;
 				case 'grid':
 					await EventGrid(waitFor, fade);

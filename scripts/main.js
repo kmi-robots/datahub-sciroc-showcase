@@ -185,7 +185,6 @@ var DroneImage = async function(keep, fade){
 		
 	})
 	.done(async function(_data) {
-		console.log(_data);
 		var o = {};
 		if(!_data[0]){
 			return;
@@ -196,12 +195,12 @@ var DroneImage = async function(keep, fade){
 		o.moment = moment.unix(_data[0]._timestamp).fromNow();
 		// console.log(o);
 		await Showcase.present('drone-tmpl',"slide", o, fade);
-		await sleep(keep);
+		// await sleep(keep);
 	})
 	.always(function() {
 		// Status.busy = false;
 	});
-	// await sleep(keep);	
+	await sleep(keep);	
 }
 var RobotMessage = async function(episode, keep, fade){
 	console.log(episode);

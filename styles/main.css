@@ -329,8 +329,8 @@ div.help ul {
 }
 
 #grid {
-	padding-top: 12vw;
-/*  background: #EEE;*/
+    padding-top: 16vw;
+    padding-left: 2vw;/*  background: #EEE;*/
 /*  max-width: 1200px;*/
 	margin: auto;
 }

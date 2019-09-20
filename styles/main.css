@@ -235,12 +235,18 @@ div.monitor.row {
 	font-size: 4vw;
 	display: block;
 }
+.drone .icon{
+	height: 16%;
+	width: auto;
+	align-self: center;
+}
 .event img,
 .robot img {
 	height: 40%;
 	width: auto;
 	align-self: center;
 }
+.drone .moment ,
 .event .moment ,
 .robot .moment {
 	font-size: 2.5vw;

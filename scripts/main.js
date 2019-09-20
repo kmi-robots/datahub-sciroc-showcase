@@ -90,7 +90,7 @@ Status.update=function(episode){
 		Status.busy = false;
 	});
 };
-Status.refresh = async function(interval = 1000){
+Status.refresh = async function(interval = 500){
 	var elist = Episodes.keys();
 	for ( var x in elist){
 		var epi = elist[x];
@@ -102,6 +102,7 @@ Status.refresh = async function(interval = 1000){
 		sleep ( interval );
 	}
 	Status.ready = true;
+	// await sleep(3000); // wait three seconds after each refresh
 };
 Status.refreshMessages = async function(){
 	var episode = $("body h1").data("episode");
@@ -178,9 +179,34 @@ var Info = async function(text, keep, fade){
 	await Showcase.present('info-tmpl',"slide", o, fade);
 	await sleep(keep);
 }
-
+var DroneImage = async function(keep, fade){
+	// Get the last message
+	var jqxhr = $.getJSON( "event.php?query=@type:ImageReport&limit=1", function() {
+		
+	})
+	.done(async function(_data) {
+		console.log(_data);
+		var o = {};
+		if(!_data[0]){
+			return;
+		}
+		o.data = _data[0].base64;
+		o.team = Teams[_data[0].team].label;
+		o.episode = 'E12';
+		o.moment = moment.unix(_data[0]._timestamp).fromNow();
+		// console.log(o);
+		await Showcase.present('drone-tmpl',"slide", o, fade);
+		await sleep(keep);
+	})
+	.always(function() {
+		// Status.busy = false;
+	});
+	// await sleep(keep);	
+}
 var RobotMessage = async function(episode, keep, fade){
-	while(!Status.ready){
+	console.log(episode);
+	while(Status.messages[episode].items.length < 1){
+		console.log("log",episode);
 		await sleep(500);
 	}
 	var myArray = Object.keys(Status.messages);
@@ -203,9 +229,9 @@ var RobotMessage = async function(episode, keep, fade){
 	await sleep(keep);
 }
 var EventMessage = async function( keep, fade){
-	while(!Status.ready){
-		await sleep(500);
-	}
+	// while(!Status.ready){
+// 		await sleep(500);
+// 	}
 	// Get the last message
 	var jqxhr = $.getJSON( "event.php", function() {
 		
@@ -447,7 +473,7 @@ var InfoTeams = async function(keep, fade){
 	await sleep(keep);
 }
 var Monitor = async function(episode, keep, fade){
-	while(!Status.ready){
+	while(Status.messages[episode].items.length < 1){
 		await sleep(500);
 	}
 	// console.log("monitor",episode);
@@ -541,6 +567,9 @@ Controller.sequence = function(s){
 					break;
 				case 'event':
 					await EventMessage(waitFor, fade);
+					break;
+				case 'drone':
+					await DroneImage(waitFor, fade);
 					break;
 				case 'grid':
 					await EventGrid(waitFor, fade);

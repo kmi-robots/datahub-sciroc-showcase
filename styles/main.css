@@ -366,6 +366,14 @@ div.help ul {
 	vertical-align: middle;
 	margin-top: 4vw;
 }
+#grid .grid-item .drone .moment {
+	font-size: 1.2vw;	
+}
+#grid .grid-item img.icon{
+	width: 30%;
+	vertical-align:middle;
+	height: auto;
+}
 /* */
 
 /* ---- grid-item ---- */

@@ -203,7 +203,7 @@ var DroneImage = async function(keep, fade){
 	await sleep(keep);	
 }
 var RobotMessage = async function(episode, keep, fade){
-	console.log(episode);
+	// console.log(episode);
 	while(Status.messages[episode].items.length < 1){
 		console.log("log",episode);
 		await sleep(500);
@@ -638,8 +638,8 @@ Controller.start = async function(){
 	Controller.waitFor = wait*1000;
 	Controller.fade = fade*1000;
 	Controller.size = size;
-	Controller.loop(Status.refresh, 5000);
-	Controller.loop(Status.refreshMessages, 3000);
+	Controller.loop(Status.refresh, 3000);
+	Controller.loop(Status.refreshMessages, 1000);
 	Controller.reload = false;
 	Controller.maptimeout = to;
 

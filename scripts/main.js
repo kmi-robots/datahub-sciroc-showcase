@@ -386,7 +386,7 @@ var EventGrid = async function(keep,fade){
 		}
 	});
 	await sleep(keep);
-	stop = true;
+	// stop = true;
 }
 var Trials = async function( episode, keep, fade){
 	// console.log("trials");

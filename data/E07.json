@@ -1,7 +1,8 @@
 {
 	"code": "E07",
 	"title": "Shopping pick and pack",
-	"description": "The robot is in one the booths of the mall. On the shelf of the booth are the goodies displayed for sale to the customers. The customers can place orders through a tablet. The robot must move behind the display and collect the requested packages for the customer place them in a box and place the box on a tray where the customer can pick it.",
+	"_": "The robot is in one the booths of the mall. On the shelf of the booth are the goodies displayed for sale to the customers. The customers can place orders through a tablet.",
+	"description": " The robot must move behind the display and collect the requested packages for the customer place them in a box and place the box on a tray where the customer can pick it.",
 	"skills": [
 		"Object Perception",
 		"Object Manipulation"

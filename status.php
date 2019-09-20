@@ -53,46 +53,55 @@ function getStatusMessages( $service, $team, $episode, $key ){
 	return json_decode($html);
 }
 
-$action = @$_GET['action'] || 'status';
-$teams = [
-	"uc3m",
-	"socrob",
-	"gentlebots",
-	// "matrix",
-	"hearts",
-	"entity",
-	"leedsasr",
-	"bitbots",
-	"catie",
-	"homer",
-	"a3t",
-	"bathdrones",
-	"spqr",
-	"uweaero"
-];
-switch($action){
-	case 'status':
-		// cURL executed successfully
-		$episode = $_GET['episode'];
-		$status = [];
-		foreach($teams as $team){
-			$json = getStatusMessages( $service, $team, $episode, $key );
-			if(!is_array($json)){
-				// Error
-			}else{
-				$status = array_merge($status, $json);
+if ( basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"]) ) {
+	// echo "called directly";
+	
+	$action = @$_GET['action'] || 'status';
+	$teams = [
+		"uc3m",
+		"socrob",
+		"gentlebots",
+		// "matrix",
+		"hearts",
+		"entity",
+		"leedsasr",
+		"bitbots",
+		"catie",
+		"homer",
+		"a3t",
+		"bathdrones",
+		"spqr",
+		"uweaero"
+	];
+	switch($action){
+		case 'status':
+			// cURL executed successfully
+			$episode = $_GET['episode'];
+			$status = [];
+			foreach($teams as $team){
+				$json = getStatusMessages( $service, $team, $episode, $key );
+				if(!is_array($json)){
+					// Error
+				}else{
+					$status = array_merge($status, $json);
+				}
 			}
-		}
-		header ( "Content-type: application/json" );
-		function cmp($a, $b)
-		{
-			return intVal($a->_timestamp) > intval($b->_timestamp);
-		}
-		usort($status, "cmp");
-		$status = array_slice($status, -10);
-		print json_encode($status);
-		break;
-	default:
-		throw new Exception("Unknown or missing action: " . $action);
+			header ( "Content-type: application/json" );
+			function cmp($a, $b)
+			{
+				return intVal($a->_timestamp) > intval($b->_timestamp);
+			}
+			usort($status, "cmp");
+			$status = array_slice($status, -10);
+			print json_encode($status);
+			break;
+		default:
+			throw new Exception("Unknown or missing action: " . $action);
+	}
+	
+} else {
+	// do nothing
+
 }
+
 

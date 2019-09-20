@@ -1,7 +1,8 @@
 {
 	"code": "E12",
 	"title": "Fast delivery of emergency pills",
-	"description": "The aerial robot must attend an emergency situation in which a first-aid kit needs to be delivered to a customer. The robot must be able to fly autonomously to the customer location as fast as possible. The robot might need to detect and avoid possible obstacles on the way.",
+	"description": "The aerial robot must attend an emergency situation in which a first-aid kit needs to be delivered to a customer.",
+	"_":" The robot must be able to fly autonomously to the customer location as fast as possible. The robot might need to detect and avoid possible obstacles on the way.",
 	"skills": [
 		"Autonomous Navigation",
 		"Obstacle Detection"

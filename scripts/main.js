@@ -342,7 +342,7 @@ var EventMessage = async function( keep, fade){
 	});
 }
 
-var EventGrid = async function(keep,fade){
+var EventStrip = async function(keep,fade){
 	// console.log('eventgrid');	
 	var stop = false;
 	var getItemElement = function (_data) {
@@ -367,11 +367,12 @@ var EventGrid = async function(keep,fade){
 	var getImageElement = function(epi){
 		var elem = document.createElement('div');
 		var img = false;
-		if(typeof Episodes.keys().includes(epi) !== 'undefined'){
+		if( Episodes.keys().includes(epi) ){
 			img = epi + '.jpg';
 		}else{
 			img = epi;
 		}
+		// console.log('img', img);
 		elem.innerHTML = '<img class="img-' + epi.replace(/\./,'-') + '" src="images/' + img + '"/>';
 		var widthClass = 'grid-item--width2' ;
 		var heightClass = 'grid-item--height2' ;
@@ -632,7 +633,8 @@ Controller.sequence = function(s){
 					await DroneImageStrip(waitFor, fade);
 					break;
 				case 'grid':
-					await EventGrid(waitFor, fade);
+				case 'strip':
+					await EventStrip(waitFor, fade);
 					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);

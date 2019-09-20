@@ -179,7 +179,7 @@ var Info = async function(text, keep, fade){
 	await Showcase.present('info-tmpl',"slide", o, fade);
 	await sleep(keep);
 }
-var DroneImageStrip = async function(keep,fade){
+var DroneImageStrip = async function(team, keep, fade){
 	var stop = false;
 	var blocks = 5;
 	await Showcase.present('eventgrid-tmpl', "slide", {}, fade, async function(){
@@ -204,8 +204,17 @@ var DroneImageStrip = async function(keep,fade){
 			elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
 			return elem;
 		}
+		var url = "";
+		
+		if ( team ) {
+			url = "event.php?query=@type:ImageReport,team:" + team + "&limit=1";
+		} else {
+			url = "event.php?query=@type:ImageReport&limit=1";
+		}
+		
 		while(!stop){
-			await $.getJSON( "event.php?query=@type:ImageReport&limit=1", function() {
+			
+			await $.getJSON( url, function() {
 			})
 			.done(async function(_data) {
 				console.log(_data[0]._id , lastObject._id);
@@ -237,9 +246,16 @@ var DroneImageStrip = async function(keep,fade){
 	await sleep(keep);
 	stop = true;
 }
-var DroneImage = async function(keep, fade){
+var DroneImage = async function(team, keep, fade){
 	// Get the last message
-	var jqxhr = $.getJSON( "event.php?query=@type:ImageReport&limit=1", function() {
+	if ( team ) {
+		url = "event.php?query=@type:ImageReport,team:" + team + "&limit=1";
+	} else {
+		url = "event.php?query=@type:ImageReport&limit=1";
+	}
+	console.log('team',team);
+	console.log('url',url);
+	var jqxhr = $.getJSON( url, function() {
 		
 	})
 	.done(async function(_data) {
@@ -617,6 +633,12 @@ Controller.sequence = function(s){
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
 				await Monitor(ep, waitFor, fade);
 			}
+		} else if ( p.startsWith('drone:') ){
+			var ep = p.split(':')[1];
+			await DroneImage(ep,waitFor, fade);
+		} else if ( p.startsWith('drones:') ){
+			var ep = p.split(':')[1];
+			await DroneImageStrip(ep,waitFor, fade);
 		} else {
 			switch (p){
 				case 'help':
@@ -626,15 +648,15 @@ Controller.sequence = function(s){
 				case 'event':
 					await EventMessage(waitFor, fade);
 					break;
-				case 'drone':
-					await DroneImage(waitFor, fade);
-					break;
-				case 'drones':
-					await DroneImageStrip(waitFor, fade);
-					break;
 				case 'grid':
 				case 'strip':
 					await EventStrip(waitFor, fade);
+					break;
+				case 'drone':
+					await DroneImage(false,waitFor, fade);
+					break;
+				case 'drones':
+					await DroneImageStrip(false,waitFor, fade);
 					break;
 				case 'teams':
 					await InfoTeams(waitFor, fade);

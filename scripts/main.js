@@ -367,7 +367,7 @@ var EventGrid = async function(keep,fade){
 	var getImageElement = function(epi){
 		var elem = document.createElement('div');
 		var img = false;
-		if(typeof Episodes.keys()[epi] !== 'undefined'){
+		if(typeof Episodes.keys().includes(epi) !== 'undefined'){
 			img = epi + '.jpg';
 		}else{
 			img = epi;

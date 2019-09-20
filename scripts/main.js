@@ -283,7 +283,13 @@ var EventGrid = async function(keep,fade){
 	
 	var getImageElement = function(epi){
 		var elem = document.createElement('div');
-		elem.innerHTML = '<img src="images/' + epi + '.jpg"/>';
+		var img = false;
+		if(typeof Episodes.keys()[epi] !== 'undefined'){
+			img = epi + '.jpg';
+		}else{
+			img = epi;
+		}
+		elem.innerHTML = '<img class="img-' + epi.replace(/\./,'-') + '" src="images/' + img + '"/>';
 		var widthClass = 'grid-item--width2' ;
 		var heightClass = 'grid-item--height2' ;
 		elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
@@ -292,31 +298,35 @@ var EventGrid = async function(keep,fade){
 
 	var limit = 10;
 	var queries = {
+		'sciroc-logo.png': false,
 		'E03': '@type:RobotStatus,episode:EPISODE3',
 		'E04': '@type:RobotStatus,episode:EPISODE4',
 		'E07': '@type:RobotStatus,episode:EPISODE7',
 		'E10': '@type:RobotStatus,episode:EPISODE10',
-		'E12': '@type:RobotStatus,episode:EPISODE12'	
+		'E12': '@type:RobotStatus,episode:EPISODE12'
 	}
 	var rotate = [
+		'sciroc-logo.png',
 		'E03',
 		'E04',
 		'E07',
 		'E10',
-		'E12'	
+		'E12'
 	]
+	var blocks = 5;
 	var qidx = 0;
 	var isQuery = false;
-	await Showcase.present('eventgrid-tmpl',"slide", {}, fade, async function(){
+	await Showcase.present('eventgrid-tmpl', "slide", {}, fade, async function(){
+		// console.log("qidx", qidx);
 		var $grid = $('#grid').masonry({
-		  // columnWidth: 160,
 		  itemSelector: '.grid-item'
 		});		
 		while(!stop){
 
 			if(!isQuery){
+				// console.log("qidx", qidx);
 				var elem = {};
-				if(qidx >= 5){
+				if(qidx >= rotate.length){
 					elem = getImageElement(rotate[0]);
 					qidx = 0;
 				}else{
@@ -326,7 +336,7 @@ var EventGrid = async function(keep,fade){
 				var $elem = $( elem );
 				var elements = $('#grid .grid-item');
 			
-				while($('#grid .grid-item').length >= 5){
+				while($('#grid .grid-item').length >= blocks){
 					// console.log("elements", elements.length);
 					$grid.masonry('remove', elements.first());
 					elements = $('#grid .grid-item');
@@ -341,41 +351,42 @@ var EventGrid = async function(keep,fade){
 			
 			isQuery = false;
 			var query = '';
-			if(qidx >= 5){
+			if(qidx >= rotate.length){
 				query = queries[rotate[0]];
-			}else{
+			}else {
 				query = queries[rotate[qidx]];
 			}
 			qidx++;
-			// console.log("query", "event.php?" + query);
+
 			// Build new Element
 			// Get the last message
-			await $.getJSON( "event.php?query=" + query, function() {
-		
-			})
-			.done(async function(_data) {
-				// console.log('_data',_data);
-				if(typeof _data[0] === 'undefined'){
-					return;
-				}
-				var elem = getItemElement(_data[0]);
-				var $elem = $( elem );
-				var elements = $('#grid .grid-item');
+			if(query){
+				await $.getJSON( "event.php?query=" + query, function() {
+				})
+				.done(async function(_data) {
+					// console.log('_data',_data);
+					if(typeof _data[0] === 'undefined'){
+						return;
+					}
+					var elem = getItemElement(_data[0]);
+					var $elem = $( elem );
+					var elements = $('#grid .grid-item');
 			
-				while($('#grid .grid-item').length >= 5){
-					// console.log("elements", elements.length);
-					$grid.masonry('remove', elements.first());
-					elements = $('#grid .grid-item');
-					await sleep(1000);
-				}
-				$grid.append( $elem ).masonry( 'appended', $elem ).masonry('layout');
-				await sleep(2000);
-			});
+					while($('#grid .grid-item').length >= blocks){
+						// console.log("elements", elements.length);
+						$grid.masonry('remove', elements.first());
+						elements = $('#grid .grid-item');
+						await sleep(1000);
+					}
+					$grid.append( $elem ).masonry( 'appended', $elem ).masonry('layout');
+					await sleep(2000);
+				});
+			}
 			await sleep(2000);
 		}
 	});
 	await sleep(keep);
-	// stop = true;
+	stop = true;
 }
 var Trials = async function( episode, keep, fade){
 	// console.log("trials");

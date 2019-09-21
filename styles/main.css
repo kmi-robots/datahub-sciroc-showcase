@@ -395,3 +395,13 @@ div.help ul {
 /*.grid-item--height3 { height: 260px; }
 .grid-item--height4 { height: 360px; }
 */
+.share-on-twitter{
+	display:block;
+	font-size: 2vw;
+	text-align:center;
+	margin:auto;
+	position:absolute;
+	top:0;
+	width:100%;
+	margin-bottom:1vw;
+}

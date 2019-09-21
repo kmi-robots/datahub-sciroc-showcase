@@ -536,6 +536,56 @@ var Trials = async function( episode, keep, fade){
 	});
 	await sleep(keep);	
 }
+var Judgements = async function( episode, keep, fade){
+	// console.log("trials");
+	// while(!Status.ready){
+	// 	await sleep(500);
+	// }
+	var epi = Episodes[episode];
+	// Get the last message
+	var ts = Math.round((new Date()).getTime() / 1000);
+	var jqxhr = $.getJSON( "judgements.php?episode=" + epi + "&nocache=" + ts, function() {
+		
+	})
+	.done(async function(_data) {
+		console.log(_data);
+		var o = {};
+		if(!_data){
+			return;
+		}
+		// console.log("leaderboard",_data);
+		o.judgements = [];
+		o.code = episode;
+		// o.title = 'Judgements';
+		o.robot = Status.messages[episode].robot;
+		// console.log(o);
+		// console.log("o",o);
+		var pos = 0;
+		for(var z in _data){
+			var t = _data[z];
+			console.log(t);
+			t.team = Teams[t.team];
+			if(t.score > 0){
+				pos++;
+				t.position = pos;
+				// .format('MMMM Do YYYY, h:mm:ss a');
+				// var start = moment(t['start-time']);
+				// var end = moment(t['end-time']);
+				// t.dow = start.format('dddd');
+				// t.stime = start.format('h:mm a');
+				// t.etime = end.format('h:mm a');
+				o.judgements.push(t);
+			}
+		}
+		console.log("o",o);
+		await Showcase.present('judgements-tmpl',"slide", o, fade);
+		// await sleep(keep);
+	})
+	.always(function() {
+		// Status.busy = false;
+	});
+	await sleep(keep);	
+}
 var InfoTeams = async function(keep, fade){
 	// 
 	var o = {};
@@ -627,6 +677,11 @@ Controller.sequence = function(s){
 			var ep = p.split(':')[1];
 			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
 				await Trials(ep, waitFor, fade);
+			}
+		} else if ( p.startsWith('judgements') && p.indexOf(':') > -1){
+			var ep = p.split(':')[1];
+			if(['E03','E04','E07','E10','E12'].indexOf(ep) > -1){
+				await Judgements(ep, waitFor, fade);
 			}
 		} else if ( p.startsWith('monitor') && p.indexOf(':') > -1){
 			var ep = p.split(':')[1];
